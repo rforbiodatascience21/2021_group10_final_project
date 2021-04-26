@@ -49,9 +49,9 @@ sanctuary_data_serum_metabolites <- sanctuary_data_serum_metabolites %>%
 
 sanctuary_data_metabolites <- sanctuary_data_fecal_metabolites %>% 
   full_join(sanctuary_data_urine_metabolites,
-            by = "Sample") %>% 
+            by = c("Sample", "Treatment", "Baseline", "Baseline Treatment")) %>% 
   full_join(sanctuary_data_serum_metabolites,
-            by = "Sample")
+            by = c("Sample", "Treatment", "Baseline", "Baseline Treatment"))
             
 
 # Write data --------------------------------------------------------------
