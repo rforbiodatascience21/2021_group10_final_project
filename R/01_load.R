@@ -31,8 +31,13 @@ sanctuary_data_microbiota_ras <- read_excel("data/_raw/raw_sanctuary_data",
                                             na = "NA")
 
 # Wrangle data ------------------------------------------------------------
-my_data <- my_data_raw # %>% ...
-
+sanctuary_data_metabolites = sanctuary_data_fecal_metabolites %>%
+  left_join(sanctuary_data_urine_metabolites,
+            mutate("Sample" = tolower("Sample")),
+            by = "Sample") %>% 
+  left_join(sanctuary_data_serum_metabolites,
+            mutate("Sample" = tolower("Sample")),
+            by = "Sample")
 
 # Write data --------------------------------------------------------------
 write_tsv(x = my_data,
