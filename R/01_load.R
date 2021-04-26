@@ -27,7 +27,8 @@ sanctuary_data_urine_metabolites <- read_excel("data/_raw/raw_sanctuary_data",
 sanctuary_data_serum_metabolites <- read_excel("data/_raw/raw_sanctuary_data",
                                                sheet = "SerumMetabolites")
 sanctuary_data_microbiota_ras <- read_excel("data/_raw/raw_sanctuary_data",
-                                            sheet = "MicrobiotaRAs")
+                                            sheet = "MicrobiotaRAs",
+                                            na = "NA")
 
 # Wrangle data ------------------------------------------------------------
 my_data <- my_data_raw # %>% ...
