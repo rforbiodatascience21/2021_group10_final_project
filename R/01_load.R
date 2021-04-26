@@ -31,6 +31,8 @@ sanctuary_data_microbiota_ras <- read_excel("data/_raw/raw_sanctuary_data",
                                             na = "NA")
 
 # Wrangle data ------------------------------------------------------------
+
+# Assigning metabolite origin and creating full joined metabolite table
 sanctuary_data_fecal_metabolites <- sanctuary_data_fecal_metabolites %>% 
   rename_at(vars(-Treatment, -Sample, -Baseline, -`Baseline Treatment`, -Mixer),
             ~ paste0(.,"_fecal")) %>% 
