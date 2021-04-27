@@ -3,7 +3,7 @@ rm(list = ls())
 
 
 # Load libraries ----------------------------------------------------------
-library("tidyverse")
+library(tidyverse)
 
 
 # Define functions --------------------------------------------------------
@@ -11,32 +11,78 @@ source(file = "R/99_project_functions.R")
 
 
 # Load data ---------------------------------------------------------------
-my_data <- read_tsv(file = "data/01_my_data.tsv")
-
+fecal_metabolites <- read_tsv(file = "data/01_fecal_metabolites.tsv")
+serum_metabolites <- read_tsv(file = "data/01_serum_metabolites.tsv")
+urine_metabolites <- read_tsv(file = "data/01_urine_metabolites.tsv")
+GI_behavior <- read_tsv(file = "data/01_GI_behavior.tsv")
+immune_microbiota <- read_tsv(file = "data/01_immune_microbiota.tsv")
+microbiota_ras <- read_tsv(file = "data/01_microbiota_ras.tsv")
 
 # Wrangle data ------------------------------------------------------------
-# Assigning metabolite origin and creating full joined metabolite table
-sanctuary_data_fecal_metabolites <- sanctuary_data_fecal_metabolites %>% 
-  rename_at(vars(-Treatment, -Sample, -Baseline, -`Baseline Treatment`, -Mixer),
-            ~ paste0(.,"_fecal")) 
+# Renaming metabolite columns to contain metabolite origin
+fecal_metabolites <- fecal_metabolites %>% 
+  rename_with(.cols = where(is.numeric),
+              ~ str_c(.,
+                      "_fecal"))
 
-sanctuary_data_urine_metabolites <- sanctuary_data_urine_metabolites %>% 
-  rename_at(vars(-(1:4)),
-            ~ paste0(.,"_urine"))
+urine_metabolites <- urine_metabolites %>% 
+  rename_with(.cols = where(is.numeric),
+              ~ str_c(.,
+                      "_urine"))
 
-sanctuary_data_serum_metabolites <- sanctuary_data_serum_metabolites %>% 
-  rename_at(vars(-(1:22)),
-            ~ paste0(.,"_serum"))
+serum_metabolites <- serum_metabolites %>% 
+  rename_with(.cols = where(is.numeric),
+              ~ str_c(.,
+                      "_serum")) %>% 
+  # Rename column to match column name in other dataframes
+  rename(Mixer = "Probiotic Mixer") %>% 
+  # Change to same nomenclature as in other dataframes
+  mutate(Mixer = case_when(Mixer == "yes" ~ "probiotic",
+                           Mixer == "no" ~ "non-probiotic"))
 
-sanctuary_data_metabolites <- sanctuary_data_fecal_metabolites %>%
+# Remove and rename relevant columns and rows in microbiota data
+microbiota_ras <- microbiota_ras %>% 
+  select(-BarcodeSequence) %>% 
+  rename(Sample = Sub_vis,
+         "Baseline Treatment" = BaseTreat,
+         Mixer = ProMix) %>% 
+  # Remove rows that belong to negative controls
+  filter(!str_detect(Subject,"^neg"))
+
+# Combining all metabolite and microbiota data
+metabolites_microbiota <- fecal_metabolites %>%
   mutate(Sample = tolower(Sample)) %>% 
-  full_join(sanctuary_data_urine_metabolites,
-            by = c("Sample", "Treatment", "Baseline", "Baseline Treatment")) %>% 
-  full_join(sanctuary_data_serum_metabolites,
-            by = c("Sample", "Treatment", "Baseline", "Baseline Treatment"))
+  full_join(microbiota_ras,
+            by = c("Sample",
+                   "Treatment",
+                   "Baseline",
+                   "Baseline Treatment",
+                   "Mixer")) %>% 
+  full_join(serum_metabolites,
+            by = c("Sample",
+                   "Treatment",
+                   "Baseline",
+                   "Baseline Treatment",
+                   "Mixer")) %>% 
+  full_join(urine_metabolites,
+            by = c("Sample",
+                   "Treatment",
+                   "Baseline",
+                   "Baseline Treatment"))
 
+# Divide columns that contain information about >1 variable
+# into several columns and remove redundant columns
 
+metabolites_microbiota <- metabolites_microbiota %>% 
+  separate(col = Treatment,
+           into = c("Timing", "Treatment"),
+           sep = -3) %>% 
+  mutate(Arm = case_when(Visit == 1 | Visit == 2 ~ 1,
+                         Visit == 3 | Visit == 4 ~ 2)) %>% 
+  select(-"Baseline Treatment",
+         -Description,
+         -Baseline)
 
 # Write data --------------------------------------------------------------
-write_tsv(x = my_data_clean,
-          file = "data/02_my_data_clean.tsv")
+write_tsv(x = metabolites_microbiota,
+          file = "data/02_metabolites_microbiota.tsv")
