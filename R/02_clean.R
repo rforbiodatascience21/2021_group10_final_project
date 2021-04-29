@@ -84,7 +84,18 @@ metabolites_microbiota <- metabolites_microbiota %>%
                          Visit == 3 | Visit == 4 ~ 2)) %>% 
   select(-"Baseline Treatment",
          -Description,
-         -Baseline)
+         -Baseline) %>% 
+  mutate(Subject = case_when(Sample == 1 | Visit == 2 ~ 1,
+                         Visit == 3 | Visit == 4 ~ 2))
+
+# Rename relevant columns in immune_microbiota data
+immune_microbiota <- immune_microbiota %>%
+  rename(Sample = Subject)
+
+# Rename relevant columns in GI_behavior data
+GI_behavior <- GI_behavior %>%
+  rename(Sample = Subject)
+
 
 # Write data --------------------------------------------------------------
 write_tsv(x = metabolites_microbiota,
