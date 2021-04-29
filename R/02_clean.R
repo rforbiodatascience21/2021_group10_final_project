@@ -88,15 +88,25 @@ metabolites_microbiota <- metabolites_microbiota %>%
   mutate(Subject = case_when(Sample == 1 | Visit == 2 ~ 1,
                          Visit == 3 | Visit == 4 ~ 2))
 
-# Rename relevant columns in immune_microbiota data
+# Rename relevant columns in immune data
 immune_microbiota <- immune_microbiota %>%
   rename(Sample = Subject)
 
-# Rename relevant columns in GI_behavior data
+# Rename relevant columns in behavior data
 GI_behavior <- GI_behavior %>%
   rename(Sample = Subject)
+
+
+GI_behavior_immune <- immune_microbiota %>% 
+  full_join(GI_behavior,
+            by = c("Sample",
+                   "Treatment",
+                   "Arm"))
 
 
 # Write data --------------------------------------------------------------
 write_tsv(x = metabolites_microbiota,
           file = "data/02_metabolites_microbiota.tsv")
+
+write_tsv(x = GI_behavior_immune,
+          file = "data/02_GI_behavior_immune.tsv")
