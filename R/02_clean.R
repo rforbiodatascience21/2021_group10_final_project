@@ -104,6 +104,13 @@ GI_behavior_immune <- immune_microbiota %>%
                    "Arm"))
 
 
+GI_behavior_immune <- immune_microbiota %>% 
+  full_join(GI_behavior,
+            by = c("Sample",
+                   "Treatment",
+                   "Arm"))
+
+
 # Write data --------------------------------------------------------------
 write_tsv(x = metabolites_microbiota,
           file = "data/02_metabolites_microbiota.tsv")
