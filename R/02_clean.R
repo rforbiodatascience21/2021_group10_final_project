@@ -84,10 +84,7 @@ metabolites_microbiota <- metabolites_microbiota %>%
                          Visit == 3 | Visit == 4 ~ 2)) %>% 
   select(-"Baseline Treatment",
          -Description,
-         -Baseline) %>% 
-  mutate(Subject = case_when(Sample == 1 | Visit == 2 ~ 1,
-                         Visit == 3 | Visit == 4 ~ 2))
-
+         -Baseline) 
 # Rename relevant columns in immune data
 immune_microbiota <- immune_microbiota %>%
   rename(Sample = Subject)
@@ -97,6 +94,13 @@ GI_behavior <- GI_behavior %>%
   rename(Sample = Subject)
 
 # Merge immune and behavior data
+GI_behavior_immune <- immune_microbiota %>% 
+  full_join(GI_behavior,
+            by = c("Sample",
+                   "Treatment",
+                   "Arm"))
+
+
 GI_behavior_immune <- immune_microbiota %>% 
   full_join(GI_behavior,
             by = c("Sample",
