@@ -43,12 +43,15 @@ serum_metabolites <- serum_metabolites %>%
 # Remove and rename relevant columns and rows in microbiota data
 microbiota_ras <- microbiota_ras %>% 
   select(-BarcodeSequence) %>% 
+  # Change Mixer and Baseline treatment values that are wrong
+  mutate(BaseTreat=replace(BaseTreat, Sub_vis == "212_v1", "BL1Syn")) %>% 
+  mutate(ProMix=replace(ProMix, Sub_vis == "205_v4", "probiotic")) %>% 
   rename(Sample = Sub_vis,
          "Baseline Treatment" = BaseTreat,
          Mixer = ProMix) %>% 
   # Remove rows that belong to negative controls
-  filter(!str_detect(Subject,"^neg"))
-
+  filter(!str_detect(Subject,"^neg")) 
+  
 # Combining all metabolite and microbiota data
 metabolites_microbiota <- fecal_metabolites %>%
   mutate(Sample = tolower(Sample)) %>% 
