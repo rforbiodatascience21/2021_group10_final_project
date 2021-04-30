@@ -84,28 +84,56 @@ metabolites_microbiota <- metabolites_microbiota %>%
                          Visit == 3 | Visit == 4 ~ 2)) %>% 
   select(-"Baseline Treatment",
          -Description,
-         -Baseline) 
-# Rename relevant columns in immune data
-immune_microbiota <- immune_microbiota %>%
-  rename(Sample = Subject)
+         -Baseline,
+         -"Overall Improvement Q", # removing empty columns
+         -"Overall Improvement C",
+         -"Improved DO Overall",
+         -"Improved Pain Overall")  
 
-# Rename relevant columns in behavior data
-GI_behavior <- GI_behavior %>%
-  rename(Sample = Subject)
 
 # Merge immune and behavior data
 GI_behavior_immune <- immune_microbiota %>% 
   full_join(GI_behavior,
-            by = c("Sample",
+            by = c("Subject",
                    "Treatment",
                    "Arm"))
 
 
 GI_behavior_immune <- immune_microbiota %>% 
   full_join(GI_behavior,
-            by = c("Sample",
+            by = c("Subject",
                    "Treatment",
                    "Arm"))
+
+# Merge Behavior_Immune and Metabolites_microbiodata data
+final_data = GI_behavior_immune %>%
+  mutate(Subject = tolower(Subject)) %>%
+  full_join(metabolites_microbiota,
+            by = c("Subject",
+                   "Treatment",
+                   "Arm"))
+
+# Reorder the columns (with the categorical data at the start)
+final_data = final_data %>%
+  relocate("#SampleID") %>%
+  relocate(Subject, .after = "#SampleID") %>%
+  relocate(Sample, .after = Subject) %>%
+  relocate(Visit, .after = Sample) %>%
+  relocate(Timing, .after = Visit) %>%
+  relocate(Treatment, .after = Timing) %>%
+  relocate(Mixer, .after = Treatment) %>%
+  relocate(Arm, .after = Mixer) %>%
+  relocate(Order, .after = Arm) %>%
+  relocate(Run, .after = Order)
+
+# Pivot Long "Stool" to "Result"
+test2 = final_data %>%
+  pivot_longer(c(`Stool_Freq_Pre`, `Stool_Norm_Pre`, `Stool_Hard_Pre`, `Stool_Soft_Pre`, `Stool_Freq_D123`, `Stool_Freq_W1`,
+                 `Stool_Freq_W5`,`Stool_Freq_D835`,`Stool_Norm_D123`,`Stool_Norm_W1`,`Stool_Norm_W5`,`Stool_Norm_D835`,
+                 `Stool_Hard_D123`,`Stool_Hard_W1`,`Stool_Hard_W5`,`Stool_Hard_D835`,`Stool_Soft_D123`,`Stool_Soft_W1`,
+                 `Stool_Soft_W5`,`Stool_Soft_D835`), 
+               names_to = "Stool", 
+               values_to = "Result")
 
 
 # Write data --------------------------------------------------------------
