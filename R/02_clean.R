@@ -131,11 +131,11 @@ test2 = final_data %>%
 
 
 # Pivot long immune_microbiota
-
 immune_microbiota_longtest <- immune_microbiota %>% 
   pivot_longer(cols = -c(Subject, Treatment, Arm),    
-             names_to = c(".value", "Timing"),
-             names_pattern = "(.*)_(.)")
+               names_to = c(".value", "Timing"),
+               names_pattern = "(.*)_(.*)")
+
 
 # Write data --------------------------------------------------------------
 write_tsv(x = metabolites_microbiota,
