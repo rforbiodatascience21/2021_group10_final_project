@@ -49,9 +49,9 @@ microbiota_ras <- microbiota_ras %>%
   mutate(ProMix=replace(ProMix, Sub_vis == "205_v4", "probiotic")) %>% 
   rename("Sample" = Sub_vis,
          "Baseline Treatment" = BaseTreat,
-         "Mixer" = ProMix)
+         "Mixer" = ProMix) %>% 
   # Remove rows that belong to negative controls
-  filter(!str_detect(Subject,"^neg")) # Should these be removed?
+  filter(!str_detect(Subject,"^neg"))  # Should these be removed?
   
 # Combining all metabolite and microbiota data
 metabolites_microbiota <- fecal_metabolites %>%
@@ -72,7 +72,9 @@ metabolites_microbiota <- fecal_metabolites %>%
             by = c("Sample",
                    "Treatment",
                    "Baseline",
-                   "Baseline Treatment"))
+                   "Baseline Treatment")) %>% 
+  mutate(Subject=replace(Subject, Sample == "208_v3", "208"),
+         Visit=replace(Visit, Sample == "208_v3", "3"))
 
 # Divide columns that contain information about >1 variable
 # into several columns and remove redundant columns
@@ -90,44 +92,6 @@ metabolites_microbiota <- metabolites_microbiota %>%
          -"Overall Improvement C",
          -"Improved DO Overall",
          -"Improved Pain Overall")  
-
-
-# Merge immune and behavior data
-GI_behavior_immune <- immune_microbiota %>% 
-  full_join(GI_behavior,
-            by = c("Subject",
-                   "Treatment",
-                   "Arm"))
-
-# Merge Behavior_Immune and Metabolites_microbiodata data
-final_data = GI_behavior_immune %>%
-  mutate(Subject = tolower(Subject)) %>%
-  full_join(metabolites_microbiota,
-            by = c("Subject",
-                   "Treatment",
-                   "Arm"))
-
-# Reorder the columns (with the categorical data at the start)
-final_data = final_data %>%
-  relocate("#SampleID") %>%
-  relocate(Subject, .after = "#SampleID") %>%
-  relocate(Sample, .after = Subject) %>%
-  relocate(Visit, .after = Sample) %>%
-  relocate(Timing, .after = Visit) %>%
-  relocate(Treatment, .after = Timing) %>%
-  relocate(Mixer, .after = Treatment) %>%
-  relocate(Arm, .after = Mixer) %>%
-  relocate(Order, .after = Arm) %>%
-  relocate(Run, .after = Order)
-
-# Pivot Long "Stool" to "Result"
-test2 = final_data %>%
-  pivot_longer(c(`Stool_Freq_Pre`, `Stool_Norm_Pre`, `Stool_Hard_Pre`, `Stool_Soft_Pre`, `Stool_Freq_D123`, `Stool_Freq_W1`,
-                 `Stool_Freq_W5`,`Stool_Freq_D835`,`Stool_Norm_D123`,`Stool_Norm_W1`,`Stool_Norm_W5`,`Stool_Norm_D835`,
-                 `Stool_Hard_D123`,`Stool_Hard_W1`,`Stool_Hard_W5`,`Stool_Hard_D835`,`Stool_Soft_D123`,`Stool_Soft_W1`,
-                 `Stool_Soft_W5`,`Stool_Soft_D835`), 
-               names_to = "Stool", 
-               values_to = "Result")
 
 
 # Pivot long immune_microbiota
@@ -148,9 +112,40 @@ GI_behavior_wo_stool <- GI_behavior %>%
 stool_data <- GI_behavior %>% 
   select("Subject", "Treatment", "Arm", "Order", contains("Stool"))
 
+# Merge immune and behavior wo stool data
+GI_behavior_immune <- immune_microbiota %>% 
+  full_join(GI_behavior_wo_stool,
+            by = c("Subject",
+                   "Treatment",
+                   "Arm",
+                   "Timing"))
+
+# Merge Behavior_Immune and Metabolites_microbiodata data
+final_data = GI_behavior_immune %>%
+  mutate(Subject = tolower(Subject)) %>%
+  full_join(metabolites_microbiota,
+            by = c("Subject",
+                   "Treatment",
+                   "Arm",
+                   "Timing"))
+
+# Reorder the columns (with the categorical data at the start)
+final_data = final_data %>%
+  relocate("#SampleID") %>%
+  relocate(Subject, .after = "#SampleID") %>%
+  relocate(Sample, .after = Subject) %>%
+  relocate(Visit, .after = Sample) %>%
+  relocate(Timing, .after = Visit) %>%
+  relocate(Treatment, .after = Timing) %>%
+  relocate(Mixer, .after = Treatment) %>%
+  relocate(Arm, .after = Mixer) %>%
+  relocate(Order, .after = Arm) %>%
+  relocate(Run, .after = Order)
+
 # Write data --------------------------------------------------------------
 write_tsv(x = metabolites_microbiota,
           file = "data/02_metabolites_microbiota.tsv")
 
 write_tsv(x = GI_behavior_immune,
           file = "data/02_GI_behavior_immune.tsv")
+
