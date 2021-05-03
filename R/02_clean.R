@@ -131,15 +131,18 @@ test2 = final_data %>%
 
 
 # Pivot long immune_microbiota
-immune_microbiota_longtest <- immune_microbiota %>% 
+immune_microbiota <- immune_microbiota %>% 
   pivot_longer(cols = -c(Subject, Treatment, Arm),    
                names_to = c(".value", "Timing"),
                names_pattern = "(.*)_(.*)")
 
-
-
-behavior_w_stool <- GI_behavior %>% 
-  select(-contains("Stool"))
+# Create GI_behavior table without (wo) stool and diff columns, then pivot longer
+GI_behavior_wo_stool <- GI_behavior %>% 
+  select(-contains("Stool"),
+         -contains("_Diff")) %>% 
+  pivot_longer(cols = -c(Subject, Treatment, Arm,Order,),    
+               names_to = c(".value", "Timing"),
+               names_pattern = "(.*)_(.*)")
 
 stool_data <- GI_behavior %>% 
   select("Subject", "Treatment", "Arm", "Order", contains("Stool"))
