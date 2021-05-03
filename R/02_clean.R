@@ -131,11 +131,18 @@ test2 = final_data %>%
 
 
 # Pivot long immune_microbiota
-
 immune_microbiota_longtest <- immune_microbiota %>% 
   pivot_longer(cols = -c(Subject, Treatment, Arm),    
-             names_to = c(".value", "Timing"),
-             names_pattern = "(.*)_(.)")
+               names_to = c(".value", "Timing"),
+               names_pattern = "(.*)_(.*)")
+
+
+
+behavior_w_stool <- GI_behavior %>% 
+  select(-contains("Stool"))
+
+stool_data <- GI_behavior %>% 
+  select("Subject", "Treatment", "Arm", "Order", contains("Stool"))
 
 # Remove stool data from behavior data
 behavior_w_stool <- GI_behavior %>% 
@@ -144,7 +151,6 @@ behavior_w_stool <- GI_behavior %>%
 # Make separate table for stool data
 stool_data <- GI_behavior %>% 
   select("Subject", "Treatment", "Arm", "Order", contains("Stool"))
-
 
 # Write data --------------------------------------------------------------
 write_tsv(x = metabolites_microbiota,
