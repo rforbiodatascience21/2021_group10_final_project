@@ -45,14 +45,18 @@ serum_metabolites <- serum_metabolites %>%
 microbiota_ras <- microbiota_ras %>% 
   select(-BarcodeSequence) %>% 
   # Change Mixer and Baseline treatment values that are wrong
-  mutate(BaseTreat=replace(BaseTreat, Sub_vis == "212_v1", "BL1Syn")) %>% 
-  mutate(ProMix=replace(ProMix, Sub_vis == "205_v4", "probiotic")) %>% 
+  mutate(BaseTreat = replace(BaseTreat,
+                             Sub_vis == "212_v1",
+                             "BL1Syn")) %>% 
+  mutate(ProMix = replace(ProMix,
+                          Sub_vis == "205_v4",
+                          "probiotic")) %>% 
   rename("Sample" = Sub_vis,
          "Baseline Treatment" = BaseTreat,
          "Mixer" = ProMix) %>% 
   # Remove rows that belong to negative controls
-  filter(!str_detect(Subject,"^neg"))  # Should these be removed?
-  
+  filter(!str_detect(Subject,"^neg"))  
+
 # Combining all metabolite and microbiota data
 metabolites_microbiota <- fecal_metabolites %>%
   mutate(Sample = tolower(Sample)) %>% 
@@ -73,8 +77,12 @@ metabolites_microbiota <- fecal_metabolites %>%
                    "Treatment",
                    "Baseline",
                    "Baseline Treatment")) %>% 
-  mutate(Subject=replace(Subject, Sample == "208_v3", "208"),
-         Visit=replace(Visit, Sample == "208_v3", "3"))
+  mutate(Subject = replace(Subject,
+                           Sample == "208_v3",
+                           "208"),
+         Visit = replace(Visit,
+                         Sample == "208_v3",
+                         "3"))
 
 # Divide columns that contain information about >1 variable
 # into several columns and remove redundant columns
@@ -88,7 +96,7 @@ metabolites_microbiota <- metabolites_microbiota %>%
   select(-"Baseline Treatment",
          -Description,
          -Baseline,
-         -"Overall Improvement Q", # removing empty columns
+         -"Overall Improvement Q",
          -"Overall Improvement C",
          -"Improved DO Overall",
          -"Improved Pain Overall")  
@@ -110,7 +118,11 @@ GI_behavior_wo_stool <- GI_behavior %>%
 
 # Make separate table for stool data
 stool_data <- GI_behavior %>% 
-  select("Subject", "Treatment", "Arm", "Order", contains("Stool"))
+  select("Subject",
+         "Treatment",
+         "Arm",
+         "Order",
+         contains("Stool"))
 
 # Merge immune and behavior wo stool data
 GI_behavior_immune <- immune_microbiota %>% 
@@ -121,9 +133,9 @@ GI_behavior_immune <- immune_microbiota %>%
                    "Timing"))
 
 # Merge Behavior_Immune and Metabolites_microbiodata data
-final_data = GI_behavior_immune %>%
-  mutate(Subject = tolower(Subject)) %>%
-  full_join(metabolites_microbiota,
+final_data = metabolites_microbiota %>%
+  mutate(Subject = as.double(Subject)) %>%
+  full_join(GI_behavior_immune,
             by = c("Subject",
                    "Treatment",
                    "Arm",
@@ -143,9 +155,9 @@ final_data = final_data %>%
   relocate(Run, .after = Order)
 
 # Write data --------------------------------------------------------------
-write_tsv(x = metabolites_microbiota,
-          file = "data/02_metabolites_microbiota.tsv")
+write_tsv(x = final_data,
+          file = "data/02_clean_data.tsv")
 
-write_tsv(x = GI_behavior_immune,
-          file = "data/02_GI_behavior_immune.tsv")
+write_tsv(x = stool_data,
+          file = "data/02_stool_data.tsv")
 
