@@ -137,6 +137,15 @@ immune_microbiota_longtest <- immune_microbiota %>%
              names_to = c(".value", "Timing"),
              names_pattern = "(.*)_(.)")
 
+# Remove stool data from behavior data
+behavior_w_stool <- GI_behavior %>% 
+  select(-contains("Stool"))
+
+# Make separate table for stool data
+stool_data <- GI_behavior %>% 
+  select("Subject", "Treatment", "Arm", "Order", contains("Stool"))
+
+
 # Write data --------------------------------------------------------------
 write_tsv(x = metabolites_microbiota,
           file = "data/02_metabolites_microbiota.tsv")
