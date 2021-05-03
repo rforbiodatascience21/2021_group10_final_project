@@ -147,6 +147,13 @@ GI_behavior_wo_stool <- GI_behavior %>%
 stool_data <- GI_behavior %>% 
   select("Subject", "Treatment", "Arm", "Order", contains("Stool"))
 
+# Remove stool data from behavior data
+behavior_w_stool <- GI_behavior %>% 
+  select(-contains("Stool"))
+
+# Make separate table for stool data
+stool_data <- GI_behavior %>% 
+  select("Subject", "Treatment", "Arm", "Order", contains("Stool"))
 
 # Write data --------------------------------------------------------------
 write_tsv(x = metabolites_microbiota,

@@ -3,7 +3,7 @@ rm(list = ls())
 
 
 # Load libraries ----------------------------------------------------------
-library("tidyverse")
+library(tidyverse)
 
 
 # Define functions --------------------------------------------------------
@@ -22,8 +22,21 @@ my_data_clean_aug %>% ...
 my_data_clean_aug %>% ...
 
 
-# Visualise data ----------------------------------------------------------
-my_data_clean_aug %>% ...
+# Visualize data ----------------------------------------------------------
+
+# Playing with visualizing microbiome compositions in barplot
+final_data %>% 
+  select(Sample, starts_with("k__")) %>% 
+  filter(!str_detect(Sample, "^neg")) %>% 
+  pivot_longer(cols = -Sample,
+               names_to = "Taxa",
+               values_to = "Relative abundance") %>% 
+  ggplot(data = .,
+         mapping = aes(x = Sample,
+                       y = `Relative abundance`,
+                       fill = Taxa))+
+  geom_col(show.legend = FALSE,
+           width = 0.9)
 
 
 # Write data --------------------------------------------------------------
