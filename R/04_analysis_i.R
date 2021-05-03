@@ -47,10 +47,10 @@ microbiome_data = sanctuary_data %>%
 
 # Visualizing microbiome compositions in barplot
 
-ggplot(data = microbiome_data,
-       mapping = aes(x = Sample,
-                     y = Relative_abundance,
-                     fill = Order_taxa))+
+microbiome_plot = microbiome_data %>% 
+  ggplot(mapping = aes(x = Sample,
+                       y = Relative_abundance,
+                       fill = Order_taxa))+
   geom_col()+
   scale_fill_manual(values = rep(brewer.pal(11,
                                             "Paired"),
@@ -62,5 +62,10 @@ ggplot(data = microbiome_data,
 
 
 # Write data --------------------------------------------------------------
-write_tsv(...)
-ggsave(...)
+write_tsv(x = microbiome_data,
+          file = "data/04_microbiome_data.tsv")
+ggsave(filename = "04_microbiome_composition_barplot.png",
+       path = "results",
+       plot = microbiome_plot,
+       width = 12,
+       height = 6)
