@@ -19,24 +19,22 @@ immune_microbiota <- read_tsv(file = "data/01_immune_microbiota.tsv")
 microbiota_ras <- read_tsv(file = "data/01_microbiota_ras.tsv")
 
 # Wrangle data ------------------------------------------------------------
+
 # Renaming metabolite columns to contain metabolite origin
-fecal_metabolites <- fecal_metabolites %>% 
-  rename_with(.cols = where(is.numeric),
-              ~ str_c(.,
-                      "_fecal"))
+
+fecal_metabolites = fecal_metabolites %>% 
+  suffix_numeric_cols(df = .,
+                      string = "_fecal")
 
 urine_metabolites <- urine_metabolites %>% 
-  rename_with(.cols = where(is.numeric),
-              ~ str_c(.,
-                      "_urine"))
+  suffix_numeric_cols(df = .,
+                      string = "_urine")
 
 serum_metabolites <- serum_metabolites %>% 
-  rename_with(.cols = where(is.numeric),
-              ~ str_c(.,
-                      "_serum")) %>% 
+  suffix_numeric_cols(df = .,
+                      string = "_serum") %>% 
   # Rename column to match column name in other dataframes
   rename("Mixer" = `Probiotic Mixer`) %>% 
-  
   # Change to same nomenclature as in other dataframes
   mutate(Mixer = case_when(Mixer == "yes" ~ "probiotic",
                            Mixer == "no" ~ "non-probiotic"))
@@ -112,7 +110,7 @@ immune_microbiota <- immune_microbiota %>%
 GI_behavior_wo_stool <- GI_behavior %>% 
   select(-contains("Stool"),
          -contains("_Diff")) %>% 
-  pivot_longer(cols = -c(Subject, Treatment, Arm,Order,),    
+  pivot_longer(cols = -c(Subject, Treatment, Arm, Order),    
                names_to = c(".value", "Timing"),
                names_pattern = "(.*)_(.*)")
 
