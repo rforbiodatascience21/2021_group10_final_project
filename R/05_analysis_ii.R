@@ -20,7 +20,8 @@ metabolite_data <- sanctuary_data %>%
          Subject,
          Treatment,
          contains(c("_fecal", "_urine", "_serum"))) %>% 
-  filter(Subject != 208)
+  filter(Subject != 208) %>% 
+  mutate(Subject = as.factor(Subject))
 
 # Filter out rows 17, 18, 19, and 32!
 
@@ -41,8 +42,16 @@ pca_metabolites = metabolite_data %>%
 
 pca_metabolites %>%
   augment(metabolite_data) %>% 
-  ggplot(aes(.fittedPC1, .fittedPC2, color = Treatment)) + 
-  geom_point(size = 1.5)
+  ggplot(aes(.fittedPC1,
+             .fittedPC2,
+             color = Subject)) + 
+  geom_point(size = 2.5,
+             aes(shape = Treatment))+
+  stat_ellipse(alpha = 0.5)+
+  theme_minimal()+
+  labs(x = "PC1",
+       y = "PC2",
+       title = "PCA of metabolites from fecal, urine, or serum samples")
 
 # Write data --------------------------------------------------------------
 write_tsv()
