@@ -131,7 +131,7 @@ GI_behavior_immune <- immune_microbiota %>%
                    "Timing"))
 
 # Merge Behavior_Immune and Metabolites_microbiodata data
-final_data = metabolites_microbiota %>%
+final_data <- metabolites_microbiota %>%
   mutate(Subject = as.double(Subject)) %>%
   full_join(GI_behavior_immune,
             by = c("Subject",
@@ -140,7 +140,7 @@ final_data = metabolites_microbiota %>%
                    "Timing"))
 
 # Reorder the columns (with the categorical data at the start)
-final_data = final_data %>%
+final_data <- final_data %>%
   relocate("#SampleID") %>%
   relocate(Subject, .after = "#SampleID") %>%
   relocate(Sample, .after = Subject) %>%
