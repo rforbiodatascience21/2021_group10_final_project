@@ -95,6 +95,26 @@ microbiome_plot = microbiome_data %>%
                                    hjust = 1))
 
 
+# Visualizing Abberant Behavior for all subject with boxplots
+ABC_data %>% 
+  ggplot(data = .,
+         mapping = aes(x = factor(Subject),
+                       y = Score,
+                       color = factor(Timing))) +
+  geom_boxplot() +
+  facet_grid(.~Treatment)
+
+# Visualizing Abberant Behavior for one subject
+
+ABC_data %>%
+  filter(Subject == 202) %>% 
+  ggplot(data = .,
+         mapping = aes(x = Abberant_Behavior,
+                       y = Score,
+                       fill = Treatment)) +
+  geom_bar(stat="identity") +
+  facet_grid(.~Timing)
+
 # Write data --------------------------------------------------------------
 write_tsv(x = microbiome_data,
           file = "data/04_microbiome_data.tsv")
