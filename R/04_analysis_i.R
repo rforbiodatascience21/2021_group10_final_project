@@ -96,6 +96,8 @@ microbiome_plot = microbiome_data %>%
 
 
 # Visualizing Abberant Behavior for all subject with boxplots
+# before and after treatment
+
 ABC_data %>% 
   ggplot(data = .,
          mapping = aes(x = factor(Subject),
@@ -104,7 +106,7 @@ ABC_data %>%
   geom_boxplot() +
   facet_grid(.~Treatment)
 
-# Visualizing Abberant Behavior for one subject
+# Visualizing Abberant Behavior for one subject before and after treatment
 
 ABC_data %>%
   filter(Subject == 202) %>% 
