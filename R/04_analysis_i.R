@@ -42,6 +42,40 @@ microbiome_data = sanctuary_data %>%
          Family = zap_empty(Family),
          Genus = zap_empty(Genus))
 
+# Subset Behavioral data for further plotting
+# Aberrant behavior Data
+ABC_data = sanctuary_data %>% 
+  select(Subject,Treatment,Timing,starts_with("ABC"),-"ABC_Total") %>%
+  rename(Irritability = ABC_SS1,
+         Lethargy = ABC_SS2,
+         Stereotypy = ABC_SS3,
+         Hyperactivity = ABC_SS4) %>%
+  pivot_longer(cols = -c(Subject,Timing,Treatment),
+               names_to = "Abberant_Behavior",
+               values_to = "Score") %>% 
+  drop_na()
+
+# Adaptative behavior data
+ABAS_data = sanctuary_data %>% 
+  select(Subject,Treatment,Timing,starts_with("ABAS")) %>%
+  pivot_longer(cols = -c(Subject,Timing,Treatment),
+               names_to = "Adaptative_Behavior",
+               values_to = "Score") %>% 
+  drop_na()
+
+# Repetitive behavior data
+RBS_data = sanctuary_data %>% 
+  select(Subject,Treatment,Timing,starts_with("RBS")) %>%
+  rename(Stereotype = RBS_SS1,
+         Compulsive = RBS_SS2,
+         Routine = RBS_SS3,
+         Sameness = RBS_SS4,
+         Restricted = RBS_SS5) %>%
+  pivot_longer(cols = -c(Subject,Timing,Treatment),
+               names_to = "Repetitive_Behavior",
+               values_to = "Score") %>% 
+  drop_na()
+
 
 # Visualize data ----------------------------------------------------------
 
