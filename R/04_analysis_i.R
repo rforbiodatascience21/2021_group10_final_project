@@ -13,7 +13,7 @@ source(file = "R/99_project_functions.R")
 
 
 # Load data ---------------------------------------------------------------
-sanctuary_data <- read_tsv(file = "data/02_clean_data.tsv")
+sanctuary_data = read_tsv(file = "data/02_clean_data.tsv")
 
 
 # Wrangle data ------------------------------------------------------------
@@ -22,7 +22,8 @@ sanctuary_data <- read_tsv(file = "data/02_clean_data.tsv")
 # data long for plotting
 
 microbiome_data = sanctuary_data %>% 
-  select(Sample, starts_with("k__")) %>% 
+  select(Sample,
+         starts_with("k__")) %>% 
   pivot_longer(cols = -Sample,
                names_to = "Taxa",
                values_to = "Relative_abundance") %>% 
@@ -33,7 +34,12 @@ microbiome_data = sanctuary_data %>%
          Taxa = str_remove_all(Taxa,
                                 "\\]")) %>% 
   separate(col = Taxa,
-           into = c("Kingdom", "Phylum", "Class_taxa", "Order_taxa", "Family", "Genus"),
+           into = c("Kingdom",
+                    "Phylum",
+                    "Class_taxa",
+                    "Order_taxa",
+                    "Family",
+                    "Genus"),
            sep = ";") %>% 
   drop_na() %>% 
   mutate(Phylum = zap_empty(Phylum),
@@ -62,8 +68,10 @@ microbiome_plot = microbiome_data %>%
 
 
 # Write data --------------------------------------------------------------
+
 write_tsv(x = microbiome_data,
           file = "data/04_microbiome_data.tsv")
+
 ggsave(filename = "04_microbiome_composition_barplot.png",
        path = "results",
        plot = microbiome_plot,

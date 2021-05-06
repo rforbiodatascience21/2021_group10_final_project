@@ -11,12 +11,12 @@ source(file = "R/99_project_functions.R")
 
 
 # Load data ---------------------------------------------------------------
-fecal_metabolites <- read_tsv(file = "data/01_fecal_metabolites.tsv")
-serum_metabolites <- read_tsv(file = "data/01_serum_metabolites.tsv")
-urine_metabolites <- read_tsv(file = "data/01_urine_metabolites.tsv")
-GI_behavior <- read_tsv(file = "data/01_GI_behavior.tsv")
-immune_microbiota <- read_tsv(file = "data/01_immune_microbiota.tsv")
-microbiota_ras <- read_tsv(file = "data/01_microbiota_ras.tsv")
+fecal_metabolites = read_tsv(file = "data/01_fecal_metabolites.tsv")
+serum_metabolites = read_tsv(file = "data/01_serum_metabolites.tsv")
+urine_metabolites = read_tsv(file = "data/01_urine_metabolites.tsv")
+GI_behavior = read_tsv(file = "data/01_GI_behavior.tsv")
+immune_microbiota = read_tsv(file = "data/01_immune_microbiota.tsv")
+microbiota_ras = read_tsv(file = "data/01_microbiota_ras.tsv")
 
 # Wrangle data ------------------------------------------------------------
 
@@ -26,11 +26,11 @@ fecal_metabolites = fecal_metabolites %>%
   suffix_numeric_cols(df = .,
                       string = "_fecal")
 
-urine_metabolites <- urine_metabolites %>% 
+urine_metabolites = urine_metabolites %>% 
   suffix_numeric_cols(df = .,
                       string = "_urine")
 
-serum_metabolites <- serum_metabolites %>% 
+serum_metabolites = serum_metabolites %>% 
   suffix_numeric_cols(df = .,
                       string = "_serum") %>% 
   # Rename column to match column name in other dataframes
@@ -38,9 +38,11 @@ serum_metabolites <- serum_metabolites %>%
   # Change to same nomenclature as in other dataframes
   mutate(Mixer = case_when(Mixer == "yes" ~ "probiotic",
                            Mixer == "no" ~ "non-probiotic"))
+
       
 # Remove and rename relevant columns and rows in microbiota data
-microbiota_ras <- microbiota_ras %>% 
+
+microbiota_ras = microbiota_ras %>% 
   select(-BarcodeSequence) %>% 
   # Change Mixer and Baseline treatment values that are wrong
   mutate(BaseTreat = replace(BaseTreat,
@@ -56,7 +58,7 @@ microbiota_ras <- microbiota_ras %>%
   filter(!str_detect(Subject,"^neg"))  
 
 # Combining all metabolite and microbiota data
-metabolites_microbiota <- fecal_metabolites %>%
+metabolites_microbiota = fecal_metabolites %>%
   mutate(Sample = tolower(Sample)) %>% 
   full_join(microbiota_ras,
             by = c("Sample",
@@ -85,9 +87,10 @@ metabolites_microbiota <- fecal_metabolites %>%
 # Divide columns that contain information about >1 variable
 # into several columns and remove redundant columns
 
-metabolites_microbiota <- metabolites_microbiota %>% 
+metabolites_microbiota = metabolites_microbiota %>% 
   separate(col = Treatment,
-           into = c("Timing", "Treatment"),
+           into = c("Timing",
+                    "Treatment"),
            sep = -3) %>% 
   mutate(Arm = case_when(Visit == 1 | Visit == 2 ~ 1,
                          Visit == 3 | Visit == 4 ~ 2)) %>% 
@@ -101,21 +104,28 @@ metabolites_microbiota <- metabolites_microbiota %>%
 
 
 # Pivot long immune_microbiota
-immune_microbiota <- immune_microbiota %>% 
-  pivot_longer(cols = -c(Subject, Treatment, Arm),    
-               names_to = c(".value", "Timing"),
+immune_microbiota = immune_microbiota %>% 
+  pivot_longer(cols = -c(Subject,
+                         Treatment,
+                         Arm),    
+               names_to = c(".value",
+                            "Timing"),
                names_pattern = "(.*)_(.*)")
 
 # Create GI_behavior table without (wo) stool and diff columns, then pivot longer
-GI_behavior_wo_stool <- GI_behavior %>% 
+GI_behavior_wo_stool = GI_behavior %>% 
   select(-contains("Stool"),
          -contains("_Diff")) %>% 
-  pivot_longer(cols = -c(Subject, Treatment, Arm, Order),    
-               names_to = c(".value", "Timing"),
+  pivot_longer(cols = -c(Subject,
+                         Treatment,
+                         Arm,
+                         Order),    
+               names_to = c(".value",
+                            "Timing"),
                names_pattern = "(.*)_(.*)")
 
 # Make separate table for stool data
-stool_data <- GI_behavior %>% 
+stool_data = GI_behavior %>% 
   select("Subject",
          "Treatment",
          "Arm",
@@ -123,7 +133,7 @@ stool_data <- GI_behavior %>%
          contains("Stool"))
 
 # Merge immune and behavior wo stool data
-GI_behavior_immune <- immune_microbiota %>% 
+GI_behavior_immune = immune_microbiota %>% 
   full_join(GI_behavior_wo_stool,
             by = c("Subject",
                    "Treatment",
@@ -131,7 +141,7 @@ GI_behavior_immune <- immune_microbiota %>%
                    "Timing"))
 
 # Merge Behavior_Immune and Metabolites_microbiodata data
-final_data <- metabolites_microbiota %>%
+final_data = metabolites_microbiota %>%
   mutate(Subject = as.double(Subject)) %>%
   full_join(GI_behavior_immune,
             by = c("Subject",
@@ -140,7 +150,7 @@ final_data <- metabolites_microbiota %>%
                    "Timing"))
 
 # Reorder the columns (with the categorical data at the start)
-final_data <- final_data %>%
+final_data = final_data %>%
   relocate("#SampleID") %>%
   relocate(Subject, .after = "#SampleID") %>%
   relocate(Sample, .after = Subject) %>%
