@@ -51,7 +51,7 @@ pca_metabolites_plot = pca_metabolites %>%
   theme_minimal()+
   labs(x = "PC1",
        y = "PC2",
-       title = "PCA of metabolites from fecal, urine, or serum samples")
+       title = "PCA of metabolites from fecal, urine, and serum samples")
 
 # Write data --------------------------------------------------------------
 

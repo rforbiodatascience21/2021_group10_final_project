@@ -64,7 +64,8 @@ microbiome_plot = microbiome_data %>%
                     aesthetics = "fill")+
   theme(axis.text.x = element_text(angle = 90,
                                    vjust = 0.5,
-                                   hjust = 1))
+                                   hjust = 1))+
+  labs(title = "Microbiome composition of fecal samples")
 
 
 # Write data --------------------------------------------------------------
