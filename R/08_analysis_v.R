@@ -24,8 +24,8 @@ ABCbehavior_actinobac_data <- data %>%
          starts_with("ABC"), 
          P_Actinobacteria,
          G_Bifidobacterium,
-         G_Clostridium,
-         contains("g__Akkermansia")) %>% 
+         contains("g__Akkermansia"),
+         G_Clostridium) %>% 
   rename("Irritability score" = ABC_SS1,
          "Lethargy score" = ABC_SS2,
          "Stereotypic_behavior score" = ABC_SS3,
@@ -66,25 +66,6 @@ p1 <- ABCbehavior_actinobac_data %>%
 p2 <- ABCbehavior_actinobac_data %>% 
   ggplot(mapping = aes(x = `Abberant Behavior Score`,
                        y = Bifidobacterium,
-                       color = Timing)) +
-  geom_point(size = 4) +
-  # Text displayed for patients after the Syn treatment
-  geom_text(aes(label = ifelse(Timing == "Post" & (Treatment == "Synbiotic" | Treatment == "Prebiotic"),
-                               as.character(Subject),
-                               '')), 
-            size = 3, 
-            hjust=0, 
-            vjust=0, 
-            colour = "black") +
-  facet_wrap(~ Treatment) +
-  theme_bw() 
-
-# Scatterplot visualization of correlation between
-# aberrant behavior (total) score and Clostridium amounts
-# before and after the treatment
-p3 <- ABCbehavior_actinobac_data %>% 
-  ggplot(mapping = aes(x = `Abberant Behavior Score`,
-                       y = Clostridium,
                        color = Timing)) +
   geom_point(size = 4) +
   # Text displayed for patients after the Syn treatment
