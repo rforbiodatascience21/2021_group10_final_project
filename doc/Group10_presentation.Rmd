@@ -50,6 +50,7 @@ GI_behavior = read_tsv(file = "../data/02_GI_behavior_wo_stool.tsv")
 immune_microbiota = read_tsv(file = "../data/01_immune_microbiota.tsv")
 microbiota_ras = read_tsv(file = "../data/01_microbiota_ras.tsv")
 stool_data = read_tsv(file = "../data/02_stool_data.tsv")
+final_data = read_tsv(file = "../data/03_final_data_clean_aug.tsv")
 
 ```
 
@@ -85,6 +86,14 @@ GI_behavior %>%
 
 ```{r echo=TRUE}
 str(stool_data)
+```
+
+## Joining data
+
+full_join() of all tables into final_data:
+
+```{r}
+str(final_data)
 ```
 
 
