@@ -19,7 +19,7 @@ sanctuary_data <- read_tsv(file = "data/02_clean_data.tsv")
 
 # Subset Behavioral data for further plotting
 # Aberrant behavior Data
-ABC_data = sanctuary_data %>% 
+ABC_data <- sanctuary_data %>% 
   select(Subject,Treatment,Timing,starts_with("ABC"),-"ABC_Total") %>%
   rename(Irritability = ABC_SS1,
          Lethargy = ABC_SS2,
@@ -31,22 +31,22 @@ ABC_data = sanctuary_data %>%
   drop_na()
 
 # Adaptative behavior data
-ABAS_data = sanctuary_data %>% 
-  select(Subject,Treatment,Timing,starts_with("ABAS")) %>%
-  pivot_longer(cols = -c(Subject,Timing,Treatment),
+ABAS_data <- sanctuary_data %>% 
+  select(Subject, Treatment, Timing, starts_with("ABAS")) %>%
+  pivot_longer(cols = -c(Subject, Timing, Treatment),
                names_to = "Adaptative_Behavior",
                values_to = "Score") %>% 
   drop_na()
 
 # Repetitive behavior data
-RBS_data = sanctuary_data %>% 
-  select(Subject,Treatment,Timing,starts_with("RBS")) %>%
+RBS_data <- sanctuary_data %>% 
+  select(Subject, Treatment, Timing, starts_with("RBS")) %>%
   rename(Stereotype = RBS_SS1,
          Compulsive = RBS_SS2,
          Routine = RBS_SS3,
          Sameness = RBS_SS4,
          Restricted = RBS_SS5) %>%
-  pivot_longer(cols = -c(Subject,Timing,Treatment),
+  pivot_longer(cols = -c(Subject, Timing, Treatment),
                names_to = "Repetitive_Behavior",
                values_to = "Score") %>% 
   drop_na()
@@ -58,9 +58,8 @@ RBS_data = sanctuary_data %>%
 # Visualizing Abberant Behavior for all subject with boxplots
 # before and after treatment
 
-ABC_plot_1 = ABC_data %>% 
-  ggplot(data = .,
-         mapping = aes(x = factor(Subject),
+ABC_plot_1 <- ABC_data %>% 
+  ggplot(mapping = aes(x = factor(Subject),
                        y = Score,
                        color = factor(Timing))) +
   geom_boxplot() +
@@ -68,10 +67,9 @@ ABC_plot_1 = ABC_data %>%
 
 # Visualizing Abberant Behavior for one subject before and after treatment
 
-ABC_plot_2 = ABC_data %>%
+ABC_plot_2 <- ABC_data %>%
   filter(Subject == 202) %>% 
-  ggplot(data = .,
-         mapping = aes(x = Abberant_Behavior,
+  ggplot(mapping = aes(x = Abberant_Behavior,
                        y = Score,
                        fill = Treatment)) +
   geom_bar(stat="identity") +
