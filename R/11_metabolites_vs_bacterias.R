@@ -202,7 +202,8 @@ figure <- ggarrange(p1, p2, p3, p4, p5, p6,
                     vjust = 0.5) %>%
   annotate_figure(top = text_grob("Relative abundance of some Bacterias versus some Metabolites \n",
                                   face = "bold", 
-                                  size = 14))
+                                  size = 14),
+                  left = text_grob("Relative abundance is logged 10",rot = 90))
 figure
 
 
