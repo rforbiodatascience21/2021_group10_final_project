@@ -11,17 +11,17 @@ source(file = "R/99_project_functions.R")
 
 
 # Load data ---------------------------------------------------------------
-fecal_metabolites = read_tsv(file = "data/02_fecal_metabolites_clean.tsv")
-serum_metabolites = read_tsv(file = "data/02_serum_metabolites_clean.tsv")
-urine_metabolites = read_tsv(file = "data/02_urine_metabolites_clean.tsv")
-GI_behavior = read_tsv(file = "data/02_GI_behavior_wo_stool.tsv")
-immune_microbiota = read_tsv(file = "data/02_immune_microbiota_clean.tsv")
-microbiota_ras = read_tsv(file = "data/02_microbiota_ras_clean.tsv")
+fecal_metabolites <- read_tsv(file = "data/02_fecal_metabolites_clean.tsv")
+serum_metabolites <- read_tsv(file = "data/02_serum_metabolites_clean.tsv")
+urine_metabolites <- read_tsv(file = "data/02_urine_metabolites_clean.tsv")
+GI_behavior <- read_tsv(file = "data/02_GI_behavior_wo_stool.tsv")
+immune_microbiota <- read_tsv(file = "data/02_immune_microbiota_clean.tsv")
+microbiota_ras <- read_tsv(file = "data/02_microbiota_ras_clean.tsv")
 
 
 # Wrangle data ------------------------------------------------------------
 # Combining all metabolite and microbiota data
-metabolites_microbiota = fecal_metabolites %>%
+metabolites_microbiota <- fecal_metabolites %>%
   full_join(microbiota_ras,
             by = c("Sample",
                    "Treatment",
@@ -39,6 +39,7 @@ metabolites_microbiota = fecal_metabolites %>%
                    "Treatment",
                    "Baseline",
                    "Baseline Treatment")) %>% 
+  # Include Subject and Visit information on subject with no metabolite data
   mutate(Subject = replace(Subject,
                            Sample == "208_v3",
                            "208"),
@@ -49,7 +50,7 @@ metabolites_microbiota = fecal_metabolites %>%
 # Divide columns that contain information about >1 variable
 # into several columns and remove redundant columns
 
-metabolites_microbiota = metabolites_microbiota %>% 
+metabolites_microbiota <- metabolites_microbiota %>% 
   separate(col = Treatment,
            into = c("Timing",
                     "Treatment"),
@@ -66,7 +67,7 @@ metabolites_microbiota = metabolites_microbiota %>%
 
 
 # Merge immune_microbiota, GI_behavior, and metabolites_microbiota data
-final_data = metabolites_microbiota %>%
+final_data <- metabolites_microbiota %>%
   mutate(Subject = as.double(Subject)) %>% 
   full_join(immune_microbiota,
             by = c("Subject",
@@ -81,7 +82,7 @@ final_data = metabolites_microbiota %>%
   mutate(Subject = as.factor(Subject))
 
 # Reorder the columns (with the categorical data at the start)
-final_data = final_data %>%
+final_data <- final_data %>%
   relocate("#SampleID") %>%
   relocate(Subject, .after = "#SampleID") %>%
   relocate(Sample, .after = Subject) %>%
