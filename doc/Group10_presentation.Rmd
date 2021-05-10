@@ -148,7 +148,7 @@ include_graphics("../results/04_microbiome_composition_barplot.png")
 
 ## PCA of microbiomes
 
-```{r out.width='100%'}
+```{r out.width='90%'}
 include_graphics("../results/04_pca_microbiome_plot.png")
 ```
 
@@ -160,28 +160,28 @@ include_graphics("../results/08_ABC_vs_taxa_scatterplot.png", error = F)
 
 
 
-## Gastrointestinal symptoms vs. taxa abundance pre and post treatment | Diarrhea
+## Gastrointestinal symptoms vs. taxa abundance pre and post treatment
 
-```{r out.width='100%'}
+```{r out.width='90%'}
 include_graphics("../results/09_diarrhea_vs_taxa_plot.png")
 ```
 
 ## PCA of metabolome
 
-```{r out.width='100%'}
+```{r out.width='90%'}
 include_graphics("../results/05_PCA_metabolites_plot.png")
 ```
 
 ## Correlations of some metabolites and bacterial taxa
 
-```{r out.width='100%'}
+```{r out.width='90%'}
 include_graphics("../results/11_scatter_plots.png")
 
 ```
 
 
 ## Immune cell phenotypes
-```{r out.width='100%'}
+```{r out.width='90%'}
 include_graphics("../results/10_Immune_heatmap_plot.png")
 ```
 
