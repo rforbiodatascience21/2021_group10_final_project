@@ -34,9 +34,39 @@ Gut_metabolites_immune_cells_cytokines_data <- data %>%
 
 # Visualize data ----------------------------------------------------------
 # Scatterplot visualization of correlation between
-# certain gut metabolites and immune cells and cytokines
+# certain gut metabolites and immune cells or cytokines
+# fecal butyrate and IL10_CD4
+  
 
-
+  p1 <- ggplot(data=Gut_metabolites_immune_cells_cytokines_data, 
+               mapping=aes(x=Fecal butyrate, y=IL10_CD4),color = "blue") + 
+    geom_point(size=2, shape=23)
+  
+  # Visualize data ----------------------------------------------------------
+  # Scatterplot visualization of correlation between
+  # certain gut metabolites and immune cells or cytokines
+  # Serum acetate and IL13_CD4
+  
+  p2 <- ggplot(data=Gut_metabolites_immune_cells_cytokines_data, 
+               mapping=aes(x=Serum acetate, y=IL13_CD4), color = "red") + 
+    geom_point(size=2, shape=20)
+  
+  # Visualize data ----------------------------------------------------------
+  # Scatterplot visualization of correlation between
+  # certain gut metabolites and immune cells or cytokines
+  # Urine acetate and TNFa_CD8
+  
+  p3 <- ggplot(data=Gut_metabolites_immune_cells_cytokines_data, 
+               mapping=aes(x=Urine acetate, y=TNFa_CD8),color = "black") + 
+    geom_point(size=2, shape=10)
+  
+  
+  
+  
+ 
+  
+    
+    
 
 
            
