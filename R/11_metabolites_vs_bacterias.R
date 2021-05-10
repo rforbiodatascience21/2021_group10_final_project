@@ -49,7 +49,6 @@ all_data = res.cor %>%
   )
 
 
-
 # Correlations of gut metabolites vs bacterias superior to 0.8
 high_corr = all_data %>%
   filter((r > 0.8 | r < -0.8))
@@ -72,7 +71,7 @@ high_cor_serum = high_corr %>%
 # Some tries
 # butyrate (+ acetate, proprionate) vs all bacterias
 
-res.cor2 = correlate(test)
+res.cor2 = correlate(micro_meta_data)
 
 res.cor2 %>%
   focus(Butyrate_fecal) %>%
@@ -91,7 +90,7 @@ distribution = all_data %>%
   geom_histogram(bins = 10)
 
 # Correlation plot 
-correlate(test) %>%
+correlate(micro_meta_data) %>%
   focus_if(any_over_80, mirror = TRUE) %>%
   rearrange() %>%
   #  shave() %>%
@@ -100,7 +99,7 @@ correlate(test) %>%
 
 # Some tries
 
-correlate(test) %>%
+correlate(micro_meta_data) %>%
   focus("k__Archaea;p__Euryarchaeota",
         Butyrate_fecal,
         Acetate_fecal,
@@ -108,7 +107,7 @@ correlate(test) %>%
         Taurine_urine,
         Galactose_urine,
         Mannitol_urine,
-        ,mirror = TRUE) %>%
+        mirror = TRUE) %>%
   rplot()
 
 # Write data --------------------------------------------------------------

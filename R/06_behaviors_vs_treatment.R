@@ -55,12 +55,10 @@ RBS_data = sanctuary_data %>%
 # Visualize data ----------------------------------------------------------
 
 
-
-
 # Visualizing Abberant Behavior for all subject with boxplots
 # before and after treatment
 
-ABC_data %>% 
+ABC_plot_1 = ABC_data %>% 
   ggplot(data = .,
          mapping = aes(x = factor(Subject),
                        y = Score,
@@ -70,7 +68,7 @@ ABC_data %>%
 
 # Visualizing Abberant Behavior for one subject before and after treatment
 
-ABC_data %>%
+ABC_plot_2 = ABC_data %>%
   filter(Subject == 202) %>% 
   ggplot(data = .,
          mapping = aes(x = Abberant_Behavior,
@@ -80,5 +78,17 @@ ABC_data %>%
   facet_grid(.~Timing)
 
 # Write data --------------------------------------------------------------
-write_tsv()
-ggsave()
+write_tsv(x = ABC_data,
+          file = "data/06_behaviors_vs_treatment.tsv")
+
+ggsave(filename = "06_ABC_plot.png",
+       path = "results",
+       plot = ABC_plot_1,
+       width = 12,
+       height = 8)
+
+ggsave(filename = "06_ABC_plot_subject_202.png",
+       path = "results",
+       plot = ABC_plot_2,
+       width = 12,
+       height = 8)
