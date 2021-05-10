@@ -33,8 +33,7 @@ Gut_metabolites_immune_cells_cytokines_data <- data %>%
          IL17_CD4,
          TNFa_CD4,
          TNFa_CD8,
-         IL6_CD4,
-         starts_with("ABC"), 
+         IL6_CD4, 
          P_Actinobacteria,
          G_Bifidobacterium,
          contains("g__Akkermansia"),
@@ -43,12 +42,19 @@ Gut_metabolites_immune_cells_cytokines_data <- data %>%
          "Fecal butyrate" = Butyrate_fecal,
          "Serum acetate" = Acetate_serum,
          "Urine acetate" = Acetate_urine,
-         "Abberant Behavior Score" = ABC_Total,
+         "Fecal proprionte" = Propionate_fecal,
          "Actinobacteria" = P_Actinobacteria,
          "Bifidobacterium" = G_Bifidobacterium,
          "Clostridium" = G_Clostridium,
          "Akkermansia" = `k__Bacteria;p__Verrucomicrobia;c__Verrucomicrobiae;o__Verrucomicrobiales;f__Verrucomicrobiaceae;g__Akkermansia`) %>% 
   mutate(Treatment = case_when(Treatment == "Pre" ~ "Prebiotic",
                                Treatment == "Syn" ~ "Synbiotic"))
+
+
+
+
+
+
+
 
 
