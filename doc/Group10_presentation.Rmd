@@ -165,6 +165,18 @@ include_graphics("../results/08_ABC_vs_taxa_scatterplot.png", error = F)
 include_graphics("../results/09_diarrhea_vs_taxa_plot.png")
 ```
 
+## PCA of metabolome
+
+```{r}
+include_graphics("../results/05_PCA_metabolites_plot.png")
+```
+
+## Correlations of some metabolites and bacterial taxa
+
+```{r}
+include_graphics("../results/11_scatter_plots.png")
+```
+
 
 ## Immune cell phenotypes
 ```{r}
