@@ -120,7 +120,7 @@ Exploring the data:
 
 # Results
 
-<<<<<<< HEAD
+
 ## Change in abberant behavior after treatment
 
 ```{r, out.width='95%', fig.align='center'}
