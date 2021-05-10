@@ -120,7 +120,7 @@ GIsymptoms_plot <- (pain_plot | gas_plot) /
 
 # Write data --------------------------------------------------------------
 write_tsv(x = GIsymptoms_data,
-          file = "data/07_GIsymptoms_data.tsv")
+          file = "data/07_Gastrointestinal_symptoms_data.tsv")
 
 ggsave(filename = "07_Gastrointestinal_symptoms_bar_plot.png",
        path = "results",
