@@ -158,6 +158,29 @@ include_graphics("../results/04_pca_microbiome_plot.png")
 include_graphics("../results/08_ABC_vs_taxa_scatterplot.png", error = F)
 ```
 
+## Gastrointestinal symptoms vs. taxa abundance pre and post treatment | Constipation
+
+```{r}
+include_graphics("../results/09_constipation_vs_taxa_plot.png")
+```
+
+## Gastrointestinal symptoms vs. taxa abundance pre and post treatment | Diarrhea
+
+```{r}
+include_graphics("../results/09_diarrhea_vs_taxa_plot.png")
+```
+
+## Gastrointestinal symptoms vs. taxa abundance pre and post treatment | Gas
+
+```{r}
+include_graphics("../results/09_gas_vs_taxa_plot.png")
+```
+
+## Gastrointestinal symptoms vs. taxa abundance pre and post treatment | Pain
+
+```{r}
+include_graphics("../results/09_pain_vs_taxa_plot.png")
+```
 
 
 # Discussion
