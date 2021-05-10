@@ -64,7 +64,7 @@ include_graphics("images/Diagram_data_structure.png")
 
 ## Tidying data
 
->- Align column names
+- Align column names
 - Change entries with typos
 - Assign NAs
 - Remove undesired and empty columns
@@ -123,19 +123,19 @@ Exploring the data:
 
 ## Change in abberant behavior after treatment
 
-```{r, out.width='95%', fig.align='center'}
+```{r, out.width='88%', fig.align='center'}
 include_graphics("../results/06_ABC_plot.png", error = F)
 ```
 
 ## Behavioral scores of subject "202" and "212" 
 
-```{r, out.width='95%', fig.align='center'}
+```{r, out.width='88%', fig.align='center'}
 include_graphics("../results/06_ABC_plot_subject_202-212.png", error = F)
 ```
 
 ## Gastrointestinal symptoms
 
-```{r, out.width='80%', fig.align='center'}
+```{r, out.width='95%', fig.align='center'}
 include_graphics("../results/07_Gastrointestinal_symptoms_bar_plot.png", error = F)
 ```
 
@@ -148,7 +148,7 @@ include_graphics("../results/04_microbiome_composition_barplot.png")
 
 ## PCA of microbiomes
 
-```{r out.width='90%'}
+```{r out.width='95%'}
 include_graphics("../results/04_pca_microbiome_plot.png")
 ```
 
@@ -162,13 +162,13 @@ include_graphics("../results/08_ABC_vs_taxa_scatterplot.png", error = F)
 
 ## Gastrointestinal symptoms vs. taxa abundance pre and post treatment
 
-```{r out.width='90%'}
+```{r out.width='100%'}
 include_graphics("../results/09_diarrhea_vs_taxa_plot.png")
 ```
 
 ## PCA of metabolome
 
-```{r out.width='90%'}
+```{r out.width='95%'}
 include_graphics("../results/05_PCA_metabolites_plot.png")
 ```
 
@@ -181,7 +181,7 @@ include_graphics("../results/11_scatter_plots.png")
 
 
 ## Immune cell phenotypes
-```{r out.width='90%'}
+```{r out.width='95%'}
 include_graphics("../results/10_Immune_heatmap_plot.png")
 ```
 
