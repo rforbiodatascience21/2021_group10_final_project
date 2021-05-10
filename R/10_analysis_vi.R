@@ -51,8 +51,7 @@ Immune_heatmap_plot <-Immune_heatmap %>%
        y = "Immunce cell markers") +
   theme(axis.text.x = element_text(angle = 90, 
                                    vjust = 0.5),
-        panel.background = element_blank(),
-        axis.line = element_line(colour = "black"))
+        panel.background = element_blank())
 
 
 # Write data --------------------------------------------------------------
