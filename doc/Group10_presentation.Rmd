@@ -185,6 +185,11 @@ include_graphics("../results/11_scatter_plots.png")
 include_graphics("../results/10_Immune_heatmap_plot.png")
 ```
 
+## Immune cells vs. certain metabolites
+
+```{r out.width='100%'}
+include_graphics("../results/07_cytokines_metabolites_scatterplot.png.png")
+```
 
 
 # Discussion
@@ -197,7 +202,7 @@ include_graphics("../results/10_Immune_heatmap_plot.png")
 But why?
 
 
-- Perhaps immune cells (however, subject 202 and 212 do not exhibit marked changes in immune cell phenotypes)
+>- Perhaps immune cells (however, subject 202 and 212 do not exhibit marked changes in immune cell phenotypes)
 - Perhaps placebo?
 - More subjects needed
 - Longer test period
