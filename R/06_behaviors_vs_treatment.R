@@ -4,7 +4,6 @@ rm(list = ls())
 
 # Load libraries ----------------------------------------------------------
 library(tidyverse)
-library(RColorBrewer)
 library(haven)
 
 
