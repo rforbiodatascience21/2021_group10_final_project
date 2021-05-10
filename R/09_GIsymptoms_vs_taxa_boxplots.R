@@ -126,9 +126,9 @@ p4 <- GIsymptoms_taxa_data %>%
                              "#009900", 
                              "#CCFFFF", 
                              "#FFFF00", 
-                             "#33FF33"))
-
-
+                             "#33FF33")) +  
+  labs(title = "Corrletion between pre and post treatment diarrhea symptoms and bacterial taxa abundance",
+       subtitle = "Boxplots stratified on four symptom levels")
 
 # Boxplots of diarrhea symptoms against different taxa pre and post treatment 
 
@@ -145,7 +145,8 @@ p5 <- GIsymptoms_taxa_data %>%
   scale_fill_manual(values=c("#009900", 
                              "#CCFFFF", 
                              "#FFFF00", 
-                             "#33FF33"))
+                             "#33FF33")) +
+  
 
 
 # Diarrhea vs. clostridium
