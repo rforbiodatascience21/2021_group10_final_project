@@ -44,7 +44,7 @@ Immune_heatmap_plot <-Immune_heatmap %>%
              y = Marker, 
              fill= Frequency)) + 
   geom_tile()+
-  facet_grid(.~Treatment) +
+  facet_grid(~Treatment) +
   labs(title = "Cell frequency before and after treatment",
        x = "Subject and time",
        y = "Immunce cell markers") +
@@ -64,3 +64,4 @@ ggsave(filename = "10_Immune_heatmap_plot.png",
        plot = Immune_heatmap_plot,
        width = 12,
        height = 8)
+
