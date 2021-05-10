@@ -16,7 +16,7 @@ data <- read_tsv(file = "data/02_clean_data.tsv")
 
 # Wrangle data ------------------------------------------------------------
 # Subsetting the table for analysis and renaming the columns
-ABCbehavior_actinobac_data <- data %>% 
+ABCbehavior_data <- data %>% 
   select(Subject,
          Sample, 
          Timing,
@@ -43,7 +43,7 @@ ABCbehavior_actinobac_data <- data %>%
 # Scatterplot visualization of correlation between
 # aberrant behavior (total) score and Actionbacteria amounts
 # before and after the treatment
-p1 <- ABCbehavior_actinobac_data %>% 
+p1 <- ABCbehavior_data %>% 
   ggplot(mapping = aes(x = `Abberant Behavior Score`,
                        y = Actinobacteria,
                        color = Timing)) +
@@ -63,7 +63,7 @@ p1 <- ABCbehavior_actinobac_data %>%
 # Scatterplot visualization of correlation between
 # aberrant behavior (total) score and Bifidobacterium amounts
 # before and after the treatment
-p2 <- ABCbehavior_actinobac_data %>% 
+p2 <- ABCbehavior_data %>% 
   ggplot(mapping = aes(x = `Abberant Behavior Score`,
                        y = Bifidobacterium,
                        color = Timing)) +
@@ -82,7 +82,7 @@ p2 <- ABCbehavior_actinobac_data %>%
 # Scatterplot visualization of correlation between
 # aberrant behavior (total) score and Clostridium amounts
 # before and after the treatment
-p3 <- ABCbehavior_actinobac_data %>% 
+p3 <- ABCbehavior_data %>% 
   ggplot(mapping = aes(x = `Abberant Behavior Score`,
                        y = Clostridium,
                        color = Timing)) +
@@ -101,7 +101,7 @@ p3 <- ABCbehavior_actinobac_data %>%
 # Scatterplot visualization of correlation between
 # aberrant behavior (total) score and Akkermansia amounts
 # before and after the treatment
-p4 <- ABCbehavior_actinobac_data %>% 
+p4 <- ABCbehavior_data %>% 
   ggplot(mapping = aes(x = `Abberant Behavior Score`,
                        y = Akkermansia,
                        color = Timing)) +

@@ -1,0 +1,53 @@
+---
+title: "Presentation"
+author: "Group 10"
+date: "12-5-2021"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(knitr)
+```
+
+# Introduction 
+
+## Study {.build}
+
+__Sanctuary et al., 2019:__
+Pilot study of probiotic/colostrum supplementation on gut function in children with autism and gastrointestinal symptoms
+
+> - Probiotic/synbiotic treatment
+> - Autism symptoms
+> - Gastrointestinal symptoms
+> - Metabolites from fecal, urine, and serum samples
+> - Cytokines in blood
+> - Microbiota of fecal samples
+
+## Data
+
+
+
+
+```{r message=FALSE, echo=TRUE}
+fecal_metabolites = read_tsv(file = "../data/01_fecal_metabolites.tsv")
+serum_metabolites = read_tsv(file = "../data/01_serum_metabolites.tsv")
+urine_metabolites = read_tsv(file = "../data/01_urine_metabolites.tsv")
+GI_behavior = read_tsv(file = "../data/01_GI_behavior.tsv")
+immune_microbiota = read_tsv(file = "../data/01_immune_microbiota.tsv")
+microbiota_ras = read_tsv(file = "../data/01_microbiota_ras.tsv")
+
+```
+
+
+```{r}
+
+```
+
+## Slide with Plot
+
+```{r pressure}
+plot(pressure)
+```
+

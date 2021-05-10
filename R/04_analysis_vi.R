@@ -36,11 +36,15 @@ Immune_heatmap<- sanctuary_data %>%
 # Visualize data ----------------------------------------------------------
 
 Immune_heatmap_plot <-Immune_heatmap %>% 
-  ggplot(aes(Subject_time, Marker, fill= Frequency)) + 
+  ggplot(aes(x = Subject_time, 
+             y = Marker, 
+             fill= Frequency, 
+             width = 0.98,
+             height = 0.98)) + 
   geom_tile()+
   labs(title = "Cell frequency before and after treatment",
-  x = "Subjects pre or post treatment",
-  y = "Markers")+
+       x = "Subjects pre or post treatment",
+       y = "Markers")+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
 Immune_heatmap_plot
 
