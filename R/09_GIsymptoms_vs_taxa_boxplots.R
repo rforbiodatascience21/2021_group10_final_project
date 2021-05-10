@@ -126,9 +126,7 @@ p4 <- GIsymptoms_taxa_data %>%
                              "#009900", 
                              "#CCFFFF", 
                              "#FFFF00", 
-                             "#33FF33")) +  
-  labs(title = "Corrletion between pre and post treatment diarrhea symptoms and bacterial taxa abundance",
-       subtitle = "Boxplots stratified on four symptom levels")
+                             "#33FF33")) 
 
 # Boxplots of diarrhea symptoms against different taxa pre and post treatment 
 
@@ -137,7 +135,7 @@ p5 <- GIsymptoms_taxa_data %>%
   ggplot(mapping = aes(x = Timing,
                        y = Bifidobacterium,
                        fill = Diarrhea)) +
-  geom_boxplot(show.legend = FALSE) +
+  geom_boxplot() +
   facet_wrap(~ Treatment) +
   aes(x = fct_inorder(Timing)) +
   xlab("Timing") +
@@ -146,6 +144,8 @@ p5 <- GIsymptoms_taxa_data %>%
                              "#CCFFFF", 
                              "#FFFF00", 
                              "#33FF33")) +
+  labs(title = "Corrletion between pre and post treatment diarrhea symptoms and bacterial taxa abundance",
+       subtitle = "Boxplots stratified on four symptom levels")
   
 
 
@@ -154,7 +154,7 @@ p6 <- GIsymptoms_taxa_data %>%
   ggplot(mapping = aes(x = Timing,
                        y = Clostridium,
                        fill = Diarrhea)) +
-  geom_boxplot() +
+  geom_boxplot(show.legend = FALSE) +
   facet_wrap(~ Treatment) +
   aes(x = fct_inorder(Timing)) +
   xlab("Timing") +
@@ -202,7 +202,7 @@ p8 <- GIsymptoms_taxa_data %>%
 
 pain_vs_taxa_plot = (p1 | p2)
 gas_vs_taxa_plot = (p3 | p4)
-diarrhea_vs_taxa_plot = (p5 | p6)
+diarrhea_vs_taxa_plot = (p5 / p6)
 constipation_vs_taxa_plot = (p7 | p8)
 
 # Write data --------------------------------------------------------------
