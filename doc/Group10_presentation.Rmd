@@ -24,7 +24,7 @@ Pilot study of probiotic/colostrum supplementation on gut function in children w
  - Autism symptoms
  - Gastrointestinal symptoms
  - Metabolites from fecal, urine, and serum samples
- - Cytokines in blood
+ - Immune cell populations in blood
  - Microbiota of fecal samples
 
 ## Data
@@ -116,7 +116,7 @@ Exploring the data:
 - GI symptoms related to microbiome
 - Microbiome changes (PCA)
 - Metabolite changes
-- Cytokine changes
+- Immune cell population changes
 
 # Results
 
