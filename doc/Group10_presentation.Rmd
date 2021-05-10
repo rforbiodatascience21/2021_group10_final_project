@@ -93,7 +93,11 @@ knitr::include_graphics("../results/06_ABC_plot_subject_202.png", error = F)
 knitr::include_graphics("../results/08_ABC_vs_taxa_scatterplot.png", error = F)
 ```
 
+## Gastrointestinal symptoms pre and post treatments
 
+```{r, out.width='80%', fig.align='center'}
+knitr::include_graphics("../results/07_GIsymptoms_bar_plots.png", error = F)
+```
 
 
 # Discussion
