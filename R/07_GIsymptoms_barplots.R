@@ -79,7 +79,8 @@ gas_plot <- GIsymptoms_data %>%
   theme_bw() +
   aes(x = fct_inorder(Timing)) +
   xlab("Timing") +
-  scale_fill_manual(values=c("#000066", 
+  scale_fill_manual(values=c("#000033",
+                             "#000066", 
                              "#66CCFF", 
                              "#6666FF", 
                              "#0000CC"))
@@ -109,7 +110,8 @@ constipation_plot <- GIsymptoms_data %>%
   theme_bw() +
   aes(x = fct_inorder(Timing)) +
   xlab("Timing") +
-  scale_fill_manual(values=c("#000066", 
+  scale_fill_manual(values=c("#000033",
+                             "#000066", 
                              "#66CCFF", 
                              "#6666FF", 
                              "#0000CC"))
