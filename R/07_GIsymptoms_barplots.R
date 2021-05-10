@@ -72,7 +72,8 @@ gas_plot <- GIsymptoms_data %>%
   geom_bar(position='dodge') +
   facet_wrap(~ Treatment) +
   theme_bw() +
-  aes(x = fct_inorder(Timing))
+  aes(x = fct_inorder(Timing)) +
+  xlab("Timing")
 
 
 # Barplot of pre and post treatment diarrhea symptoms 
@@ -82,7 +83,8 @@ diarrhea_plot <- GIsymptoms_data %>%
   geom_bar(position='dodge') +
   facet_wrap(~ Treatment) +
   theme_bw() +
-  aes(x = fct_inorder(Timing))
+  aes(x = fct_inorder(Timing)) +
+  xlab("Timing")
 
 
 # Barplot of pre and post treatment constipation symptoms 
@@ -92,7 +94,8 @@ constipation_plot <- GIsymptoms_data %>%
   geom_bar(position='dodge') +
   facet_wrap(~ Treatment) +
   theme_bw() +
-  aes(x = fct_inorder(Timing))
+  aes(x = fct_inorder(Timing)) +
+  xlab("Timing")
 
 # Write data --------------------------------------------------------------
 write_tsv(x = GIsymptoms_data,
