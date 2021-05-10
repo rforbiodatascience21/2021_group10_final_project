@@ -5,6 +5,7 @@ rm(list = ls())
 # Load libraries ----------------------------------------------------------
 library(tidyverse)
 library(patchwork)
+library(forcats)
 
 
 # Define functions --------------------------------------------------------
@@ -18,8 +19,7 @@ data <- read_tsv(file = "data/02_clean_data.tsv")
 # Wrangle data ------------------------------------------------------------
 # Subsetting the table for analysis and renaming the columns
 GIsymptoms_data <- data %>% 
-  select(Sample, 
-         Timing,
+  select(Timing,
          Treatment,
          Pain,
          Gas,
@@ -49,7 +49,7 @@ GIsymptoms_data <- data %>%
                          Gas == 2 ~ "sometimes",
                          Gas == 3 ~ "frequently",
                          Gas == 4 ~ "always")) %>% 
-  drop_na()
+drop_na()
 
 
 
@@ -60,16 +60,9 @@ pain_plot <- GIsymptoms_data %>%
                        fill = Pain)) +
   geom_bar(position='dodge') +
   facet_wrap(~ Treatment) +
-  theme_bw() 
-
-# or like this
-GIsymptoms_data %>% 
-  ggplot(mapping = aes(x = Pain,
-                       fill = Timing)) +
-  geom_bar(position='dodge') +
-  facet_wrap(~ Treatment) +
-  theme_bw()
-
+  theme_bw() +
+  aes(x = fct_inorder(Timing)) +
+  xlab("Timing")
 
 
 # Barplot of pre and post treatment gas symptoms
@@ -78,15 +71,9 @@ gas_plot <- GIsymptoms_data %>%
                        fill = Gas)) +
   geom_bar(position='dodge') +
   facet_wrap(~ Treatment) +
-  theme_bw() 
-
-# or like this
-GIsymptoms_data %>% 
-  ggplot(mapping = aes(x = Gas,
-                       fill = Timing)) +
-  geom_bar(position='dodge') +
-  facet_wrap(~ Treatment) +
-  theme_bw()
+  theme_bw() +
+  aes(x = fct_inorder(Timing)) +
+  xlab("Timing")
 
 
 # Barplot of pre and post treatment diarrhea symptoms 
@@ -95,16 +82,9 @@ diarrhea_plot <- GIsymptoms_data %>%
                        fill = Diarrhea)) +
   geom_bar(position='dodge') +
   facet_wrap(~ Treatment) +
-  theme_bw()
-
-# or like this
-GIsymptoms_data %>% 
-  ggplot(mapping = aes(x = Diarrhea,
-                       fill = Timing)) +
-  geom_bar(position='dodge') +
-  facet_wrap(~ Treatment) +
-  theme_bw()
-
+  theme_bw() +
+  aes(x = fct_inorder(Timing)) +
+  xlab("Timing")
 
 
 # Barplot of pre and post treatment constipation symptoms 
@@ -113,12 +93,31 @@ constipation_plot <- GIsymptoms_data %>%
                        fill = Constipation)) +
   geom_bar(position='dodge') +
   facet_wrap(~ Treatment) +
-  theme_bw()
+  theme_bw() +
+  aes(x = fct_inorder(Timing)) +
+  xlab("Timing")
 
-# or like this
-GIsymptoms_data %>% 
-  ggplot(mapping = aes(x = Constipation,
-                       fill = Timing)) +
-  geom_bar(position='dodge') +
-  facet_wrap(~ Treatment) +
-  theme_bw()
+# Write data --------------------------------------------------------------
+write_tsv(x = GIsymptoms_data,
+          file = "data/07_GIsymptoms_data.tsv")
+
+ggsave(filename = "07_pain_bar_plot.png",
+       path = "results",
+       plot = pain_plot,
+       width = 12,
+       height = 8)
+ggsave(filename = "07_gas_bar_plot.png",
+       path = "results",
+       plot = gas_plot,
+       width = 12,
+       height = 8)
+ggsave(filename = "07_diarrhea_bar_plot.png",
+       path = "results",
+       plot = diarrhea_plot,
+       width = 12,
+       height = 8)
+ggsave(filename = "07_constipation_bar_plot.png",
+       path = "results",
+       plot = constipation_plot,
+       width = 12,
+       height = 8)

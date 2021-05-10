@@ -25,9 +25,6 @@ metabolite_data = sanctuary_data %>%
   filter(Subject != 208) %>% 
   mutate(Subject = as.factor(Subject))
 
-# Augment data ------------------------------------------------------------
-
-
 
 # Model data --------------------------------------------------------------
 
