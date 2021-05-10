@@ -50,7 +50,9 @@ p1 <- ABC_taxa_data %>%
             hjust=0, 
             vjust=0, 
             colour = "black",
-            check_overlap = TRUE)
+            check_overlap = TRUE) +
+  labs(title = "Corrletion between abberant behavior score and bacterial taxa abundance",
+       subtitle = "Boxplots stratified on pre and post treatment")
 
 # Scatterplot visualization of correlation between
 # aberrant behavior (total) score and Clostridium amounts

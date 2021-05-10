@@ -46,7 +46,7 @@ Excel file with six sheets:
 fecal_metabolites = read_tsv(file = "../data/01_fecal_metabolites.tsv")
 serum_metabolites = read_tsv(file = "../data/01_serum_metabolites.tsv")
 urine_metabolites = read_tsv(file = "../data/01_urine_metabolites.tsv")
-GI_behavior = read_tsv(file = "../data/02_GI_behavior_wo_stool.tsv")
+GI_behavior = read_tsv(file = "../data/01_GI_behavior.tsv")
 immune_microbiota = read_tsv(file = "../data/01_immune_microbiota.tsv")
 microbiota_ras = read_tsv(file = "../data/01_microbiota_ras.tsv")
 stool_data = read_tsv(file = "../data/02_stool_data.tsv")
@@ -124,19 +124,19 @@ Exploring the data:
 ## Change in abberant behavior after treatment
 
 ```{r, out.width='95%', fig.align='center'}
-knitr::include_graphics("../results/06_ABC_plot.png", error = F)
+include_graphics("../results/06_ABC_plot.png", error = F)
 ```
 
 ## Behavioral scores of subject "202" and "212" 
 
 ```{r, out.width='95%', fig.align='center'}
-knitr::include_graphics("../results/06_ABC_plot_subject_202-212.png", error = F)
+include_graphics("../results/06_ABC_plot_subject_202-212.png", error = F)
 ```
 
-## Gastrointestinal symptoms before and after treatments
+## Gastrointestinal symptoms
 
 ```{r, out.width='80%', fig.align='center'}
-knitr::include_graphics("../results/07_Gastrointestinal_symptoms_bar_plot.png", error = F)
+include_graphics("../results/07_Gastrointestinal_symptoms_bar_plot.png", error = F)
 ```
 
 
@@ -148,38 +148,40 @@ include_graphics("../results/04_microbiome_composition_barplot.png")
 
 ## PCA of microbiomes
 
-```{r out.width='100%'}
+```{r out.width='90%'}
 include_graphics("../results/04_pca_microbiome_plot.png")
 ```
 
-## Aberrant behavior vs. taxa abundance pre and post treatment
+## Aberrant behavior vs. taxa abundance
 
 ```{r, out.width='100%', fig.align='center'}
 include_graphics("../results/08_ABC_vs_taxa_scatterplot.png", error = F)
 ```
 
 
-## Gastrointestinal symptoms vs. taxa abundance pre and post treatment | Diarrhea
 
-```{r out.width='100%'}
+## Gastrointestinal symptoms vs. taxa abundance pre and post treatment
+
+```{r out.width='90%'}
 include_graphics("../results/09_diarrhea_vs_taxa_plot.png")
 ```
 
 ## PCA of metabolome
 
-```{r out.width='100%'}
+```{r out.width='90%'}
 include_graphics("../results/05_PCA_metabolites_plot.png")
 ```
 
 ## Correlations of some metabolites and bacterial taxa
 
-```{r out.width='100%'}
+```{r out.width='90%'}
 include_graphics("../results/11_scatter_plots.png")
+
 ```
 
 
 ## Immune cell phenotypes
-```{r out.width='100%'}
+```{r out.width='90%'}
 include_graphics("../results/10_Immune_heatmap_plot.png")
 ```
 

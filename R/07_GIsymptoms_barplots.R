@@ -67,7 +67,9 @@ pain_plot <- GIsymptoms_data %>%
   scale_fill_manual(values=c("#000066", 
                              "#66CCFF", 
                              "#6666FF", 
-                             "#0000CC"))
+                             "#0000CC")) +
+  labs(title = "GI symptoms pre and post Prebiotic or Synbiotic treatment",
+       subtitle = "Boxplots stratified on four symptom levels")
 
 
 # Barplot of pre and post treatment gas symptoms
@@ -83,7 +85,7 @@ gas_plot <- GIsymptoms_data %>%
                              "#000066", 
                              "#66CCFF", 
                              "#6666FF", 
-                             "#0000CC"))
+                             "#0000CC")) 
 
 
 # Barplot of pre and post treatment diarrhea symptoms 
@@ -98,7 +100,7 @@ diarrhea_plot <- GIsymptoms_data %>%
   scale_fill_manual(values=c("#000066", 
                              "#66CCFF", 
                              "#6666FF", 
-                             "#0000CC"))
+                             "#0000CC")) 
 
 
 # Barplot of pre and post treatment constipation symptoms 
@@ -114,7 +116,8 @@ constipation_plot <- GIsymptoms_data %>%
                              "#000066", 
                              "#66CCFF", 
                              "#6666FF", 
-                             "#0000CC"))
+                             "#0000CC")) 
+
 GIsymptoms_plot <- (pain_plot | gas_plot) /
   (diarrhea_plot | constipation_plot) 
 
