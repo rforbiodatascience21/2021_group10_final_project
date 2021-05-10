@@ -201,7 +201,8 @@ include_graphics("../results/07_cytokines_metabolites_scatterplot.png.png")
 
 But why?
 
-> - Perhaps immune cells 
+
+>- Perhaps immune cells (however, subject 202 and 212 do not exhibit marked changes in immune cell phenotypes)
 - Perhaps placebo?
 - More subjects needed
 - Longer test period
