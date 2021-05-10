@@ -133,19 +133,6 @@ knitr::include_graphics("../results/06_ABC_plot.png", error = F)
 knitr::include_graphics("../results/06_ABC_plot_subject_202-212.png", error = F)
 ```
 
-## Aberrant behavior pre and post treatment
-
-```{r, out.width='75%', fig.align='center'}
-include_graphics("../results/06_ABC_plot.png", error = F)
-```
-
-## Subject 202 and 212 pre and post treatment
-
-```{r, out.width='100%', fig.align='center'}
-include_graphics("../results/06_ABC_plot_subject_202-212.png", error = F)
-```
-
-
 ## Gastrointestinal symptoms pre and post treatments
 
 ```{r, out.width='80%', fig.align='center'}
