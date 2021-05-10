@@ -13,7 +13,7 @@ source(file = "R/99_project_functions.R")
 
 
 # Load data ---------------------------------------------------------------
-sanctuary_data = read_tsv(file = "data/02_clean_data.tsv")
+sanctuary_data <- read_tsv(file = "data/02_clean_data.tsv")
 
 
 # Wrangle data ------------------------------------------------------------
@@ -21,10 +21,10 @@ sanctuary_data = read_tsv(file = "data/02_clean_data.tsv")
 # Subset data to pick out microbiome compositions and make
 # data long for plotting
 
-microbiome_data = sanctuary_data %>% 
+microbiome_data <- sanctuary_data %>% 
   select(Sample,
          starts_with("k__")) %>% 
-  pivot_longer(cols = -Sample,
+  pivot_longer(cols = Sample,
                names_to = "Taxa",
                values_to = "Relative_abundance") %>% 
   mutate(Taxa = str_remove_all(Taxa,
@@ -53,19 +53,47 @@ microbiome_data = sanctuary_data %>%
 
 # Visualizing microbiome compositions in barplot
 
-microbiome_plot = microbiome_data %>% 
+microbiome_plot <- microbiome_data %>% 
+  filter(Relative_abundance > 0.01) %>% 
   ggplot(mapping = aes(x = Sample,
                        y = Relative_abundance,
                        fill = Order_taxa))+
   geom_col()+
-  scale_fill_manual(values = rep(brewer.pal(11,
-                                            "Paired"),
-                                 times = 5),
+  scale_fill_manual(values = rep(brewer.pal(12,
+                                            "Set3"),
+                                 times = 2),
                     aesthetics = "fill")+
   theme(axis.text.x = element_text(angle = 90,
                                    vjust = 0.5,
                                    hjust = 1))+
-  labs(title = "Microbiome composition of fecal samples")
+  labs(title = "Microbiome composition of fecal samples")+
+  ylim(0,1)
+
+
+# Model data --------------------------------------------------------------
+
+# This unfortunately turned out a dead end...
+
+#pca_microbiome <- sanctuary_data %>% 
+#  select(starts_with("k__"),
+#         where(~ sd(.) > 0)) %>% 
+#  drop_na() %>% 
+#  scale() %>% 
+#  prcomp()
+
+#pca_microbiome_plot = pca_microbiome %>%
+#  augment(sanctuary_data) %>% 
+#  ggplot(aes(.fittedPC1,
+#             .fittedPC2,
+#             color = Sample)) + 
+#  geom_point(size = 2.5,
+#             aes(shape = Treatment))+
+#  stat_ellipse(alpha = 0.5)+
+#  theme_minimal()+
+#  labs(x = "PC1",
+#       y = "PC2",
+#       title = "PCA of microbiome composition")
+
 
 
 # Write data --------------------------------------------------------------
