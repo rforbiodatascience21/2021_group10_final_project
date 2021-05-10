@@ -47,10 +47,15 @@ microbiota_ras = read_tsv(file = "../data/01_microbiota_ras.tsv")
 
 ## Abberant behavior pre and post treatment
 
-
 ```{r, out.width='75%', fig.align='center'}
 knitr::include_graphics("../results/06_ABC_plot.png", error = F)
 ```
 
+## Subject "202" pre and post treatment
+
+```{r, out.width='75%', fig.align='center'}
+knitr::include_graphics("../results/06_ABC_plot_subject_202.png", error = F)
 ```
+
+
 
