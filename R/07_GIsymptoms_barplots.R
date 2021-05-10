@@ -49,7 +49,6 @@ GIsymptoms_data <- data %>%
                          Gas == 2 ~ "sometimes",
                          Gas == 3 ~ "frequently",
                          Gas == 4 ~ "always")) %>% 
-  mutate()
 drop_na()
 
 
