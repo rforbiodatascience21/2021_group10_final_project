@@ -107,7 +107,6 @@ p4 <- GIsymptoms_taxa_data %>%
   theme_bw() 
 
 
-
 # Boxplots of gas symptoms against different taxa pre and post treatment 
 # Gas vs. akkermansia
 p5 <- GIsymptoms_taxa_data %>% 
@@ -185,7 +184,6 @@ p12 <- GIsymptoms_taxa_data %>%
   theme_bw()
 
 
-
 # Boxplots of constipation symptoms against different taxa pre and post treatment 
 # Constipation vs. akkermansia
 p13 <- GIsymptoms_taxa_data %>% 
@@ -227,3 +225,28 @@ pain_plot = (p1 + p2) / (p3 + p4)
 gas_plot = (p5 + p6) / (p7 + p8)
 diarrhea_plot = (p9 + p10) / (p11 + p12)
 constipation_plot = (p13 + p14) / (p15 + p16)
+
+# Write data --------------------------------------------------------------
+write_tsv(x = GIsymptoms_taxa_data,
+          file = "data/09_GIsymptoms_taxa_data.tsv")
+
+ggsave(filename = "09_pain_plot.png",
+       path = "results",
+       plot = pain_plot,
+       width = 12,
+       height = 6)
+ggsave(filename = "09_gas_plot.png",
+       path = "results",
+       plot = gas_plot,
+       width = 12,
+       height = 6)
+ggsave(filename = "09_diarrhea_plot.png",
+       path = "results",
+       plot = diarrhea_plot,
+       width = 12,
+       height = 6)
+ggsave(filename = "09_constipation_plot.png",
+       path = "results",
+       plot = constipation_plot,
+       width = 12,
+       height = 6)
