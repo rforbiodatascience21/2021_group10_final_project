@@ -48,7 +48,7 @@ Immune_heatmap_plot <-Immune_heatmap %>%
   aes(x = fct_inorder(Subject_time)) +
   labs(title = "Cell frequency before and after treatment",
        x = "Subject and time",
-       y = "Immunce cell markers") +
+       y = "Immunce cell phenotypes") +
   theme(axis.text.x = element_text(angle = 90, 
                                    vjust = 0.5),
         panel.background = element_blank())

@@ -182,6 +182,12 @@ include_graphics("../results/09_gas_vs_taxa_plot.png")
 include_graphics("../results/09_pain_vs_taxa_plot.png")
 ```
 
+## Immune cell phenotypes
+```{r}
+include_graphics("../results/10_Immune_heatmap_plot.png")
+```
+
+
 
 # Discussion
 
