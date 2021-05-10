@@ -51,6 +51,13 @@ microbiota_ras = read_tsv(file = "../data/01_microbiota_ras.tsv")
 
 ```
 
+## Data
+
+```{r out.width='90%'}
+include_graphics("images/Diagram_data_structure.png")
+```
+
+
 # Methods
 
 
