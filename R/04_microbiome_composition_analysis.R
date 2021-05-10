@@ -66,7 +66,8 @@ microbiome_plot <- microbiome_data %>%
   theme(axis.text.x = element_text(angle = 90,
                                    vjust = 0.5,
                                    hjust = 1)) +
-  labs(title = "Microbiome composition of fecal samples") +
+  labs(title = "Microbiome composition of fecal samples",
+       y = "Relative abundance") +
   ylim(0,1)
 
 
