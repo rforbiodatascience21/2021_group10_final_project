@@ -17,10 +17,10 @@ sanctuary_data = read_tsv(file = "data/02_clean_data.tsv")
 
 Immune_heatmap<- sanctuary_data %>% 
   filter(Subject != 208) %>%
-  unite(Subject_treatment_time, 
-        c(Subject, Treatment, 
-          Timing), remove=FALSE) %>% 
-  select(Subject_treatment_time,
+  unite(Subject_time, c(Subject, Timing), 
+        remove=FALSE) %>% 
+  select(Subject_time,
+         Treatment,
          contains(c("CD25",
                     "IL10_CD",
                     "IFNg_CD",
@@ -28,7 +28,7 @@ Immune_heatmap<- sanctuary_data %>%
                     "IL13",
                     "IL17_CD",
                     "IL6_B7"))) %>%
-  pivot_longer(cols = -Subject_treatment_time, 
+  pivot_longer(cols = c(-Subject_time, -Treatment),
                names_to = "Marker",
                values_to = "Frequency") %>% 
 
@@ -40,12 +40,13 @@ Immune_heatmap<- sanctuary_data %>%
 # Visualize data ----------------------------------------------------------
 
 Immune_heatmap_plot <-Immune_heatmap %>% 
-  ggplot(aes(x = Subject_treatment_time, 
+  ggplot(aes(x = Subject_time, 
              y = Marker, 
              fill= Frequency)) + 
   geom_tile()+
+  facet_grid(.~Treatment) +
   labs(title = "Cell frequency before and after treatment",
-       x = "Subject, time, and treatment",
+       x = "Subject and time",
        y = "Immunce cell markers") +
   theme(axis.text.x = element_text(angle = 90, 
                                    vjust = 0.5),
