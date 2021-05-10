@@ -2,7 +2,9 @@
 title: "Presentation"
 author: "Group 10"
 date: "12-5-2021"
-output: ioslides_presentation
+output:
+  ioslides_presentation: default
+  beamer_presentation: default
 ---
 
 ```{r setup, include=FALSE}
@@ -57,5 +59,9 @@ knitr::include_graphics("../results/06_ABC_plot.png", error = F)
 knitr::include_graphics("../results/06_ABC_plot_subject_202.png", error = F)
 ```
 
+## Aberrant behavior vs. taxa aboundance pre and post treatment
 
+```{r, out.width='80%', fig.align='center'}
+knitr::include_graphics("../results/08_ABC_vs_taxa_scatterplot.png", error = F)
+```
 
