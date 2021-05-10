@@ -45,9 +45,12 @@ microbiota_ras = read_tsv(file = "../data/01_microbiota_ras.tsv")
 
 ```
 
-## Slide with Plot
+## Abberant behavior pre and post treatment
 
-```{r pressure}
-plot(pressure)
+
+```{r, out.width='75%', fig.align='center'}
+knitr::include_graphics("../results/06_ABC_plot.png", error = F)
+```
+
 ```
 
