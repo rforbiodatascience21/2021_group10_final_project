@@ -27,15 +27,18 @@ Immune_heatmap<- sanctuary_data %>%
                     "IL17_CD"))) %>%
   pivot_longer(cols = -Subject_time, 
                names_to = "Marker",
-               values_to = "Frequency") %>% 
-  
+               values_to = "Frequency")  
+
+
 # Augment data ----------------------------------------------------------  
-  mutate_if(is.numeric, log2) 
+  
+
 
 
 # Visualize data ----------------------------------------------------------
 
 Immune_heatmap_plot <-Immune_heatmap %>% 
+  mutate_if(is.numeric, log2) %>% 
   ggplot(aes(x = Subject_time, 
              y = Marker, 
              fill= Frequency, 
