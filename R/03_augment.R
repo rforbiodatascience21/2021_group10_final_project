@@ -78,8 +78,7 @@ final_data <- metabolites_microbiota %>%
             by = c("Subject",
                    "Treatment",
                    "Arm",
-                   "Timing")) %>% 
-  mutate(Subject = as.factor(Subject))
+                   "Timing"))
 
 # Reorder the columns (with the categorical data at the start)
 final_data <- final_data %>%

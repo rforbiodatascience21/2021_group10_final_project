@@ -7,35 +7,35 @@ library(corrr)
 
 # Define functions --------------------------------------------------------
 source(file = "R/99_project_functions.R")
-any_over_80 = function(x) any(x > .8, na.rm = TRUE)
+any_over_80 <- function(x) any(x > .8, na.rm = TRUE)
 
 # Load data ---------------------------------------------------------------
-sanctuary_data <- read_tsv(file = "data/02_clean_data.tsv")
+sanctuary_data <- read_tsv(file = "data/03_final_data_clean_aug.tsv")
 
 # Wrangle data ------------------------------------------------------------
 
+# 1 - Finding the interesting variables to visualize
 # Subsetting microbiome and metabolites data
-micro_meta_data = sanctuary_data %>% 
-  select(
-    starts_with("k__"),
-    ends_with("_fecal"),
-    ends_with("_urine"),
-    ends_with("_serum")) %>%
+micro_meta_data <- sanctuary_data %>% 
+  select(starts_with("k__"),
+         ends_with("_fecal"),
+         ends_with("_urine"),
+         ends_with("_serum")) %>%
   drop_na()
 
 # Creating the long correlation table
-res.cor = correlate(micro_meta_data) %>%
+res.cor <- correlate(micro_meta_data) %>%
   #  focus_if(any_over_80, mirror = TRUE) %>%
   shave() %>%
   stretch(na.rm = TRUE)
 
-# Looking for the correlation superior to 80% among gut vs bacterias
+# Keeping only the correlations of interest (gut metabolites vs bacteria)
 
 # all
-all_data = res.cor %>%
+res.cor <- res.cor %>%
   filter((str_detect(x,"_fecal") | str_detect(y,"_fecal")) |
-         (str_detect(x,"_urine") | str_detect(y,"_urine")) |
-         (str_detect(x,"_serum") | str_detect(y,"_serum")),
+           (str_detect(x,"_urine") | str_detect(y,"_urine")) |
+           (str_detect(x,"_serum") | str_detect(y,"_serum")),
          !(str_detect(x,"_fecal") & str_detect(y,"_fecal")),
          !(str_detect(x,"_fecal") & str_detect(y,"_urine")),
          !(str_detect(x,"_fecal") & str_detect(y,"_serum")),
@@ -49,45 +49,76 @@ all_data = res.cor %>%
   )
 
 
-# Correlations of gut metabolites vs bacterias superior to 0.8
-high_corr = all_data %>%
+# Correlations of gut vs bacteria superior to 0.8
+high_corr <- res.cor %>%
   filter((r > 0.8 | r < -0.8))
 
-# fecal
-high_cor_fecal = high_corr %>%
+# Finding highest fecal vs bacterias correlations
+high_cor_fecal <- high_corr %>%
   filter((str_detect(x,"_fecal") | str_detect(y,"_fecal")),
          !(str_detect(x,"_fecal") & str_detect(y,"_fecal")))
 
-# urine
-high_cor_urine = high_corr %>%
+# Finding highest urine vs bacterias correlations
+high_cor_urine <- high_corr %>%
   filter((str_detect(x,"_urine") | str_detect(y,"_urine")),
          !(str_detect(x,"_urine") & str_detect(y,"_urine")))
 
-# serum
-high_cor_serum = high_corr %>%
+# Finding highest serum vs bacterias correlations
+high_cor_serum <- high_corr %>%
   filter((str_detect(x,"_serum") | str_detect(y,"_serum")),
          !(str_detect(x,"_serum") & str_detect(y,"_serum")))
 
-# Some tries
-# butyrate (+ acetate, proprionate) vs all bacterias
+# 2 - The data to visualize the findings
 
-res.cor2 = correlate(micro_meta_data)
-
-res.cor2 %>%
-  focus(Butyrate_fecal) %>%
-  filter(Butyrate_fecal > 0.5)
-
-res.cor2 %>%
-  focus(Acetate_fecal,Acetate_urine,Acetate_serum) %>%
-  filter(Acetate_fecal > 0.5)
-
+micro_meta_data_2 <- sanctuary_data %>% 
+  select(Sample,
+         Subject,
+         starts_with("k__"),
+         Butyrate_fecal,
+         Serine_fecal,
+         Mannitol_urine,
+         Isoleucine_urine,
+         Acetoacetate_serum,
+         Glucose_serum,
+         #Acetate_fecal,
+         #Acetate_serum,
+         #Acetate_urine,
+         #Propionate_fecal,
+         Arabinose_fecal) %>% 
+  pivot_longer(cols = -c(Sample,Subject,Butyrate_fecal,Arabinose_fecal,Serine_fecal,
+                         Mannitol_urine,Isoleucine_urine,Acetoacetate_serum,Glucose_serum),
+               names_to = "Taxa",
+               values_to = "Relative_abundance") %>% 
+  mutate(Taxa = str_remove_all(Taxa,
+                               "[kpcofg]__"),
+         Taxa = str_remove_all(Taxa,
+                               "\\["),
+         Taxa = str_remove_all(Taxa,
+                               "\\]")) %>% 
+  separate(col = Taxa,
+           into = c("Kingdom",
+                    "Phylum",
+                    "Class_taxa",
+                    "Order_taxa",
+                    "Family",
+                    "Genus"),
+           sep = ";") %>% 
+  drop_na() %>% 
+  mutate(Phylum = zap_empty(Phylum),
+         Class_taxa = zap_empty(Class_taxa),
+         Order_taxa = zap_empty(Order_taxa),
+         Family = zap_empty(Family),
+         Genus = zap_empty(Genus)) 
 
 # Visualize data ----------------------------------------------------------
 
 # Distribution of the correlation of the overall data
-distribution = all_data %>%
+distribution <- res.cor %>%
   ggplot(aes(r)) +
-  geom_histogram(bins = 10)
+  geom_histogram(bins = 10) +
+  xlab("Correlation Coefficient") +
+  ylab("Count") +
+  labs(title = "Distribution of the correlation coefficients of Gut metabolites vs Bacterias \n")
 
 # Correlation plot 
 correlate(micro_meta_data) %>%
@@ -97,19 +128,115 @@ correlate(micro_meta_data) %>%
   head() %>%
   rplot()
 
-# Some tries
+# Examples of scatterplots based on the findings (highly correlated)
+# Arabinose_fecal against Gammaproteobacteria on a scatterplot
+p1 <- micro_meta_data_2 %>% 
+  mutate(Subject = as.factor(Subject),
+         Class_taxa = as.factor(Class_taxa)) %>%
+  filter(Class_taxa == "Gammaproteobacteria") %>%
+  ggplot(mapping = aes(x = log10(Arabinose_fecal),
+                       y = Relative_abundance,
+                       colour = Subject)) +
+  geom_point() +
+  xlab("Arabinose fecal") +
+  ylab("Relative Abundance") +
+  theme(legend.position = "none")
+#  labs(title = "Relationship between Gammaproteobacteria and Arabinose Fecal \n")
 
-correlate(micro_meta_data) %>%
-  focus("k__Archaea;p__Euryarchaeota",
-        Butyrate_fecal,
-        Acetate_fecal,
-        Mannitol_urine,
-        Taurine_urine,
-        Galactose_urine,
-        Mannitol_urine,
-        mirror = TRUE) %>%
-  rplot()
+
+# Serine_fecal against Clostridia on a scatterplot
+p2 <- micro_meta_data_2 %>% 
+  mutate(Subject = as.factor(Subject),
+         Class_taxa = as.factor(Class_taxa)) %>%
+  filter(Class_taxa == "Clostridia") %>%
+  ggplot(mapping = aes(x = log10(Serine_fecal),
+                       y = Relative_abundance,
+                       colour = Subject)) +
+  geom_point() +
+  xlab("Serine fecal") +
+  ylab("Relative Abundance") +
+  theme(legend.position = "none")
+
+# Mannitol_urine against Methanobacteria on a scatterplot
+p3 <- micro_meta_data_2 %>% 
+  mutate(Subject = as.factor(Subject),
+         Class_taxa = as.factor(Class_taxa)) %>%
+  filter(Class_taxa == "Methanobacteria") %>%
+  ggplot(mapping = aes(x = log10(Mannitol_urine),
+                       y = Relative_abundance,
+                       colour = Subject)) +
+  geom_point() +
+  xlab("Mannitol urine") +
+  ylab("Relative Abundance") +
+  theme(legend.position = "none")
+
+# Isoleucine_urine against Erysipelotrichi on a scatterplot
+p4 <- micro_meta_data_2 %>% 
+  mutate(Subject = as.factor(Subject),
+         Class_taxa = as.factor(Class_taxa)) %>%
+  filter(Class_taxa == "Erysipelotrichi") %>%
+  ggplot(mapping = aes(x = log10(Isoleucine_urine),
+                       y = Relative_abundance,
+                       colour = Subject)) +
+  geom_point() +
+  xlab("Isoleucine urine") +
+  ylab("Relative Abundance") +
+  theme(legend.position = "none")
+
+# Acetoacetate_serum against Thermoplasmata on a scatterplot
+p5 <- micro_meta_data_2 %>% 
+  mutate(Subject = as.factor(Subject),
+         Class_taxa = as.factor(Class_taxa)) %>%
+  filter(Class_taxa == "Thermoplasmata") %>%
+  ggplot(mapping = aes(x = log10(Acetoacetate_serum),
+                       y = Relative_abundance,
+                       colour = Subject)) +
+  geom_point() +
+  xlab("Acetoacetate serum") +
+  ylab("Relative Abundance") +
+  theme(legend.position = "none")
+
+# Glucose_serum against Bacilli on a scatterplot
+p6 <- micro_meta_data_2 %>% 
+  mutate(Subject = as.factor(Subject),
+         Class_taxa = as.factor(Class_taxa)) %>%
+  filter(Class_taxa == "Bacilli") %>%
+  ggplot(mapping = aes(x = log10(Glucose_serum),
+                       y = Relative_abundance,
+                       colour = Subject)) +
+  geom_point() +
+  xlab("Glucose serum") +
+  ylab("Relative Abundance") +
+  theme(legend.position = "none")
+
+# Merging the 6 examples in one figure
+figure <- ggarrange(p1, p2, p3, p4, p5, p6,
+                    labels = c("A", "B", "C", "D", "E", "F"),
+                    ncol = 2, nrow = 3,
+                    common.legend = TRUE,
+                    legend = "right")
+figure
+
+
 
 # Write data --------------------------------------------------------------
-write_tsv()
-ggsave()
+write_tsv(x = micro_meta_data,
+          file = "data/11_metabolites_vs_bacterias.tsv")
+
+write_tsv(x = micro_meta_data_2,
+          file = "data/11_metabolites_vs_bacterias.tsv")
+
+write_tsv(x = res.cor,
+          file = "data/11_metabolites_vs_bacterias.tsv")
+
+ggsave(filename = "11_distribution_plot.png",
+       path = "results",
+       plot = distribution,
+       width = 12,
+       height = 8)
+
+ggsave(filename = "11_scatter_plots.png",
+       path = "results",
+       plot = figure,
+       width = 12,
+       height = 8)

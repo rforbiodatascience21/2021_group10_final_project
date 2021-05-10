@@ -20,14 +20,14 @@ library(knitr)
 __Sanctuary et al., 2019:__
 Pilot study of probiotic/colostrum supplementation on gut function in children with autism and gastrointestinal symptoms
 
-> - Probiotic/synbiotic treatment
+> - Prebiotic (Bovine Milk Oligosaccharides) or synbiotic (BMO + _B. infantis_) treatment
  - Autism symptoms
  - Gastrointestinal symptoms
  - Metabolites from fecal, urine, and serum samples
  - Cytokines in blood
  - Microbiota of fecal samples
 
-## Data 1
+## Data
 
 
 Study design:
@@ -37,7 +37,7 @@ include_graphics("images/experiment_design_flowchart.png")
 ```
 
 
-## Data 2
+## Data
 
 Excel file with six sheets:
 
@@ -50,6 +50,7 @@ GI_behavior = read_tsv(file = "../data/02_GI_behavior_wo_stool.tsv")
 immune_microbiota = read_tsv(file = "../data/01_immune_microbiota.tsv")
 microbiota_ras = read_tsv(file = "../data/01_microbiota_ras.tsv")
 stool_data = read_tsv(file = "../data/02_stool_data.tsv")
+final_data = read_tsv(file = "../data/03_final_data_clean_aug.tsv")
 
 ```
 
@@ -63,50 +64,87 @@ include_graphics("images/Diagram_data_structure.png")
 
 ## Tidying data
 
-- Align column names
+>- Align column names
 - Change entries with typos
 - Assign NAs
+- Remove undesired and empty columns
+- Filter out redundancy
+
 
 ## Tidying data
 
-```{r echo=TRUE}
+immune_microbiota data issue:
+
+```{r}
 immune_microbiota %>% 
   select(1:5)
 ```
 
 ## Tidying data
 
-```{r echo=TRUE}
+GI_behavior data issue:
+
+```{r}
 GI_behavior %>% 
   select(1:6)
 ```
 
 ## Tidying data
 
-```{r echo=TRUE}
+Data from stool log excluded:
+
+```{r}
 str(stool_data)
 ```
 
+## Joining data
+
+full_join() of all tables into final_data:
+
+```{r}
+str(final_data)
+```
+
+
+## Data analysis {.build}
+
+Exploring the data:
+
+> - Behavior vs. treatment
+- GI symptoms vs. treatment
+- Behavior related to microbiome
+- GI symptoms related to microbiome
+- Microbiome changes (PCA)
+- Metabolite changes
+- Cytokine changes
 
 # Results
 
-## Abberant behavior pre and post treatment
 
-```{r, out.width='75%', fig.align='center'}
+## Change in abberant behavior after treatment
+
+```{r, out.width='95%', fig.align='center'}
 knitr::include_graphics("../results/06_ABC_plot.png", error = F)
 ```
 
-## Subject "202" pre and post treatment
+## Behavioral scores of subject "202" and "212" 
+
+```{r, out.width='95%', fig.align='center'}
+knitr::include_graphics("../results/06_ABC_plot_subject_202-212.png", error = F)
+```
+
+## Aberrant behavior pre and post treatment
 
 ```{r, out.width='75%', fig.align='center'}
-knitr::include_graphics("../results/06_ABC_plot_subject_202.png", error = F)
+include_graphics("../results/06_ABC_plot.png", error = F)
 ```
 
-## Aberrant behavior vs. taxa aboundance pre and post treatment
+## Subject 202 and 212 pre and post treatment
 
 ```{r, out.width='100%', fig.align='center'}
-knitr::include_graphics("../results/08_ABC_vs_taxa_scatterplot.png", error = F)
+include_graphics("../results/06_ABC_plot_subject_202-212.png", error = F)
 ```
+
 
 ## Gastrointestinal symptoms pre and post treatments
 
@@ -115,4 +153,27 @@ knitr::include_graphics("../results/07_Gastrointestinal_symptoms_bar_plot.png", 
 ```
 
 
+## Microbiome composition
+
+```{r}
+include_graphics("../results/04_microbiome_composition_barplot.png")
+```
+
+## PCA of microbiomes
+
+```{r}
+include_graphics("../results/04_pca_microbiome_plot.png")
+```
+
+## Aberrant behavior vs. taxa abundance pre and post treatment
+
+```{r, out.width='100%', fig.align='center'}
+include_graphics("../results/08_ABC_vs_taxa_scatterplot.png", error = F)
+```
+
+
 # Discussion
+
+## Discussion
+
+> - Improved behavior
