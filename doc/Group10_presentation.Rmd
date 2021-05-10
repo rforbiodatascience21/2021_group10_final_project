@@ -196,6 +196,6 @@ include_graphics("../results/10_Immune_heatmap_plot.png")
 
 But why?
 
-- Perhaps immune cells
+> - Perhaps immune cells
 - More subjects needed
 - Longer test period
