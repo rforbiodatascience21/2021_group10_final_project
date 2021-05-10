@@ -40,7 +40,8 @@ Gut_metabolites_immune_cells_cytokines_data <- data %>%
 
   p1 <- ggplot(data=Gut_metabolites_immune_cells_cytokines_data, 
                mapping=aes(x=Fecal butyrate, y=IL10_CD4),color = "blue") + 
-    geom_point(size=2, shape=23)
+    geom_point(size=2, shape=23)+
+    ggtitle('Correlation 1')
   
   # Visualize data ----------------------------------------------------------
   # Scatterplot visualization of correlation between
@@ -49,7 +50,8 @@ Gut_metabolites_immune_cells_cytokines_data <- data %>%
   
   p2 <- ggplot(data=Gut_metabolites_immune_cells_cytokines_data, 
                mapping=aes(x=Serum acetate, y=IL13_CD4), color = "red") + 
-    geom_point(size=2, shape=20)
+    geom_point(size=2, shape=20)+
+    ggtitle('Correlation 2')
   
   # Visualize data ----------------------------------------------------------
   # Scatterplot visualization of correlation between
@@ -58,7 +60,8 @@ Gut_metabolites_immune_cells_cytokines_data <- data %>%
   
   p3 <- ggplot(data=Gut_metabolites_immune_cells_cytokines_data, 
                mapping=aes(x=Urine acetate, y=TNFa_CD8),color = "black") + 
-    geom_point(size=2, shape=10)
+    geom_point(size=2, shape=10)+
+    ggtitle('Correlation 3')
   
   
   
