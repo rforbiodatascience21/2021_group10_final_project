@@ -11,25 +11,25 @@ source(file = "R/99_project_functions.R")
 
 
 # Load data ---------------------------------------------------------------
-fecal_metabolites = read_tsv(file = "data/01_fecal_metabolites.tsv")
-serum_metabolites = read_tsv(file = "data/01_serum_metabolites.tsv")
-urine_metabolites = read_tsv(file = "data/01_urine_metabolites.tsv")
-GI_behavior = read_tsv(file = "data/01_GI_behavior.tsv")
-immune_microbiota = read_tsv(file = "data/01_immune_microbiota.tsv")
-microbiota_ras = read_tsv(file = "data/01_microbiota_ras.tsv")
+fecal_metabolites <- read_tsv(file = "data/01_fecal_metabolites.tsv")
+serum_metabolites <- read_tsv(file = "data/01_serum_metabolites.tsv")
+urine_metabolites <- read_tsv(file = "data/01_urine_metabolites.tsv")
+GI_behavior <- read_tsv(file = "data/01_GI_behavior.tsv")
+immune_microbiota <- read_tsv(file = "data/01_immune_microbiota.tsv")
+microbiota_ras <- read_tsv(file = "data/01_microbiota_ras.tsv")
 
 # Wrangle data ------------------------------------------------------------
 
 # Renaming metabolite columns to contain metabolite origin
 
-fecal_metabolites = fecal_metabolites %>% 
+fecal_metabolites <- fecal_metabolites %>% 
   suffix_numeric_cols(string = "_fecal") %>% 
   mutate(Sample = tolower(Sample))
 
-urine_metabolites = urine_metabolites %>% 
+urine_metabolites <- urine_metabolites %>% 
   suffix_numeric_cols(string = "_urine")
 
-serum_metabolites = serum_metabolites %>% 
+serum_metabolites <- serum_metabolites %>% 
   suffix_numeric_cols(string = "_serum") %>% 
   # Rename column to match column name in other dataframes
   rename("Mixer" = `Probiotic Mixer`) %>% 
@@ -40,7 +40,7 @@ serum_metabolites = serum_metabolites %>%
       
 # Remove and rename relevant columns and rows in microbiota data
 
-microbiota_ras = microbiota_ras %>% 
+microbiota_ras <- microbiota_ras %>% 
   select(-BarcodeSequence) %>% 
   # Change Mixer and Baseline treatment values that are wrong
   mutate(BaseTreat = replace(BaseTreat,
@@ -59,7 +59,7 @@ microbiota_ras = microbiota_ras %>%
 
 
 # Pivot long immune_microbiota
-immune_microbiota = immune_microbiota %>% 
+immune_microbiota <- immune_microbiota %>% 
   pivot_longer(cols = -c(Subject,
                          Treatment,
                          Arm),    
@@ -67,8 +67,9 @@ immune_microbiota = immune_microbiota %>%
                             "Timing"),
                names_pattern = "(.*)_(.*)")
 
-# Create GI_behavior table without (wo) stool and diff columns, then pivot longer
-GI_behavior_wo_stool = GI_behavior %>% 
+# Create GI_behavior table without (wo) stool and diff columns, 
+# then pivot longer
+GI_behavior_wo_stool <- GI_behavior %>% 
   select(-contains("Stool"),
          -contains("_Diff")) %>% 
   pivot_longer(cols = -c(Subject,
