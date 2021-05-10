@@ -14,7 +14,7 @@ source(file = "R/99_project_functions.R")
 
 
 # Load data ---------------------------------------------------------------
-data <- read_tsv(file = "data/02_clean_data.tsv")
+data <- read_tsv(file = "data/03_final_data_clean_aug.tsv")
 
 
 # Wrangle data ------------------------------------------------------------
@@ -27,7 +27,7 @@ GIsymptoms_data <- data %>%
          Dia,
          Con) %>%
   rename("Diarrhea" = Dia,
-         "Constipation" = Con) %>% 
+         "Constipation" = Con) %>%
   mutate(Treatment = case_when(Treatment == "Pre" ~ "Prebiotic",
                                Treatment == "Syn" ~ "Synbiotic")) %>% 
   mutate(Constipation = case_when(Constipation == 0 ~ "never",
