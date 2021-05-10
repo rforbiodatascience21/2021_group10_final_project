@@ -185,6 +185,11 @@ include_graphics("../results/11_scatter_plots.png")
 include_graphics("../results/10_Immune_heatmap_plot.png")
 ```
 
+## Immune cells vs. certain metabolites
+
+```{r out.width='100%'}
+include_graphics("../results/07_cytokines_metabolites_scatterplot.png.png")
+```
 
 
 # Discussion
