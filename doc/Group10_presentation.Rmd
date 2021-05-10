@@ -60,11 +60,20 @@ include_graphics("images/Diagram_data_structure.png")
 
 # Methods
 
+## Tidying data
 
+- Align column names
+- Change entries with typos
+- Assign NAs
 
-```{r}
+## Tidying data
 
+```{r echo=TRUE}
+immune_microbiota %>% 
+  select(1:5)
 ```
+
+# Results
 
 ## Abberant behavior pre and post treatment
 
@@ -84,3 +93,7 @@ knitr::include_graphics("../results/06_ABC_plot_subject_202.png", error = F)
 knitr::include_graphics("../results/08_ABC_vs_taxa_scatterplot.png", error = F)
 ```
 
+
+
+
+# Discussion
