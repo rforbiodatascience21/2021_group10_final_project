@@ -7,7 +7,6 @@ library(corrr)
 
 # Define functions --------------------------------------------------------
 source(file = "R/99_project_functions.R")
-any_over_80 <- function(x) any(x > .8, na.rm = TRUE)
 
 # Load data ---------------------------------------------------------------
 sanctuary_data <- read_tsv(file = "data/03_final_data_clean_aug.tsv")
@@ -25,7 +24,6 @@ micro_meta_data <- sanctuary_data %>%
 
 # Creating the long correlation table
 res.cor <- correlate(micro_meta_data) %>%
-  #  focus_if(any_over_80, mirror = TRUE) %>%
   shave() %>%
   stretch(na.rm = TRUE)
 
@@ -74,18 +72,13 @@ micro_meta_data_2 <- sanctuary_data %>%
   select(Sample,
          Subject,
          starts_with("k__"),
-         Butyrate_fecal,
+         Arabinose_fecal,
          Serine_fecal,
          Mannitol_urine,
          Isoleucine_urine,
          Acetoacetate_serum,
-         Glucose_serum,
-         #Acetate_fecal,
-         #Acetate_serum,
-         #Acetate_urine,
-         #Propionate_fecal,
-         Arabinose_fecal) %>% 
-  pivot_longer(cols = -c(Sample,Subject,Butyrate_fecal,Arabinose_fecal,Serine_fecal,
+         Glucose_serum) %>% 
+  pivot_longer(cols = -c(Sample,Subject,Arabinose_fecal,Serine_fecal,
                          Mannitol_urine,Isoleucine_urine,Acetoacetate_serum,Glucose_serum),
                names_to = "Taxa",
                values_to = "Relative_abundance") %>% 
@@ -120,14 +113,6 @@ distribution <- res.cor %>%
   ylab("Count") +
   labs(title = "Distribution of the correlation coefficients of Gut metabolites vs Bacterias \n")
 
-# Correlation plot 
-correlate(micro_meta_data) %>%
-  focus_if(any_over_80, mirror = TRUE) %>%
-  rearrange() %>%
-  #  shave() %>%
-  head() %>%
-  rplot()
-
 # Examples of scatterplots based on the findings (highly correlated)
 # Arabinose_fecal against Gammaproteobacteria on a scatterplot
 p1 <- micro_meta_data_2 %>% 
@@ -141,8 +126,6 @@ p1 <- micro_meta_data_2 %>%
   xlab("Arabinose fecal") +
   ylab("Relative Abundance") +
   theme(legend.position = "none")
-#  labs(title = "Relationship between Gammaproteobacteria and Arabinose Fecal \n")
-
 
 # Serine_fecal against Clostridia on a scatterplot
 p2 <- micro_meta_data_2 %>% 
