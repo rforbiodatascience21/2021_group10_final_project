@@ -20,7 +20,7 @@ library(knitr)
 __Sanctuary et al., 2019:__
 Pilot study of probiotic/colostrum supplementation on gut function in children with autism and gastrointestinal symptoms
 
-> - Probiotic/synbiotic treatment
+> - Prebiotic (Bovine Milk Oligosaccharides) or synbiotic (BMO + _B. infantis_) treatment
  - Autism symptoms
  - Gastrointestinal symptoms
  - Metabolites from fecal, urine, and serum samples
@@ -64,7 +64,7 @@ include_graphics("images/Diagram_data_structure.png")
 
 ## Tidying data
 
-- Align column names
+>- Align column names
 - Change entries with typos
 - Assign NAs
 - Remove undesired and empty columns
@@ -156,6 +156,18 @@ knitr::include_graphics("../results/07_Gastrointestinal_symptoms_bar_plot.png", 
 
 ```{r, out.width='100%', fig.align='center'}
 include_graphics("../results/08_ABC_vs_taxa_scatterplot.png", error = F)
+```
+
+## Microbiome composition
+
+```{r}
+include_graphics("../results/04_microbiome_composition_barplot.png")
+```
+
+## PCA of microbiomes
+
+```{r}
+include_graphics("../results/04_pca_microbiome_plot.png")
 ```
 
 
