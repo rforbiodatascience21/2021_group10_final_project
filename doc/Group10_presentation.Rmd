@@ -103,15 +103,15 @@ str(final_data)
 
 # Results
 
-## Abberant behavior pre and post treatment
+## Change in abberant behavior after treatment
 
-```{r, out.width='75%', fig.align='center'}
+```{r, out.width='95%', fig.align='center'}
 knitr::include_graphics("../results/06_ABC_plot.png", error = F)
 ```
 
-## Subject "202" and "212" pre and post treatment
+## Behavioral scores of subject "202" and "212" 
 
-```{r, out.width='100%', fig.align='center'}
+```{r, out.width='95%', fig.align='center'}
 knitr::include_graphics("../results/06_ABC_plot_subject_202-212.png", error = F)
 ```
 

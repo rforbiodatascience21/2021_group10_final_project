@@ -82,7 +82,10 @@ ABC_plot_2 <- ABC_data %>%
   facet_grid(.~Treatment) +
   xlab("Abberant Behavior Type") +
   labs(title = "Subject \"202\" score with Prebiotic or Synbiotic treatment",
-       subtitle = "Barplots stratified on pre and post treatment")
+       subtitle = "Barplots stratified on pre and post treatment") +
+  theme(axis.text.x = element_text(angle = 45, 
+                                   vjust = 0.5),
+        panel.background = element_blank())
 
 ABC_plot_3 <- ABC_data %>%
   filter(Subject == 212) %>% 
@@ -93,7 +96,10 @@ ABC_plot_3 <- ABC_data %>%
   facet_grid(.~Treatment) +
   xlab("Abberant Behavior Type") +
   labs(title = "Subject \"212\" score with Prebiotic or Synbiotic treatment",
-       subtitle = "Barplots stratified on pre and post treatment")
+       subtitle = "Barplots stratified on pre and post treatment") +
+  theme(axis.text.x = element_text(angle = 45, 
+                                   vjust = 0.5),
+        panel.background = element_blank())
 
 ABC_plot_significant_subjects <- ABC_plot_2+ABC_plot_3
 
