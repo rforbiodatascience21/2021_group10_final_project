@@ -5,6 +5,7 @@ rm(list = ls())
 # Load libraries ----------------------------------------------------------
 library(tidyverse)
 library(patchwork)
+library(RColorBrewer)
 
 
 # Define functions --------------------------------------------------------
@@ -61,22 +62,34 @@ GIsymptoms_taxa_data <- data %>%
 # Boxplots of pain symptoms against different taxa pre and post treatment
 # Pain vs. bifidobacterium
 p1 <- GIsymptoms_taxa_data %>% 
-  ggplot(mapping = aes(x = Pain,
+  ggplot(mapping = aes(x = Timing,
                        y = Bifidobacterium,
-                       fill = Timing)) +
-  geom_boxplot() +
+                       fill = Pain)) +
+  geom_boxplot(show.legend = FALSE) +
   facet_wrap(~ Treatment) +
-  theme_bw() 
+  aes(x = fct_inorder(Timing)) +
+  xlab("Timing") +
+  theme_bw() +
+  scale_fill_manual(values=c("#009900", 
+                             "#CCFFFF", 
+                             "#FFFF00", 
+                             "#33FF33"))
 
 # Pain vs clostridium
 p2 <- GIsymptoms_taxa_data %>% 
-  ggplot(mapping = aes(x = Pain,
+  ggplot(mapping = aes(x = Timing,
                        y = Clostridium,
-                       fill = Timing)) +
+                       fill = Pain)) +
   geom_boxplot() +
   facet_wrap(~ Treatment) +
+  aes(x = fct_inorder(Timing)) +
+  xlab("Timing") +
   ylim(0, 0.005) +
-  theme_bw() 
+  theme_bw() +
+  scale_fill_manual(values=c("#009900", 
+                             "#CCFFFF", 
+                             "#FFFF00", 
+                             "#33FF33"))
 
 
 
@@ -84,22 +97,36 @@ p2 <- GIsymptoms_taxa_data %>%
 
 # Gas vs. bifidobaterium
 p3 <- GIsymptoms_taxa_data %>% 
-  ggplot(mapping = aes(x = Gas,
+  ggplot(mapping = aes(x = Timing,
                        y = Bifidobacterium,
-                       fill = Timing)) +
-  geom_boxplot() +
+                       fill = Gas)) +
+  geom_boxplot(show.legend = FALSE) +
   facet_wrap(~ Treatment) +
-  theme_bw()
+  aes(x = fct_inorder(Timing)) +
+  xlab("Timing") +
+  theme_bw() +
+  scale_fill_manual(values=c("#003300",
+                             "#009900", 
+                             "#CCFFFF", 
+                             "#FFFF00", 
+                             "#33FF33"))
 
 
 # Gas vs. clostridium
 p4 <- GIsymptoms_taxa_data %>% 
-  ggplot(mapping = aes(x = Gas,
+  ggplot(mapping = aes(x = Timing,
                        y = Clostridium,
-                       fill = Timing)) +
+                       fill = Gas)) +
   geom_boxplot() +
   facet_wrap(~ Treatment) +
-  theme_bw()
+  aes(x = fct_inorder(Timing)) +
+  xlab("Timing") +
+  theme_bw() +
+  scale_fill_manual(values=c("#003300",
+                             "#009900", 
+                             "#CCFFFF", 
+                             "#FFFF00", 
+                             "#33FF33"))
 
 
 
@@ -107,69 +134,97 @@ p4 <- GIsymptoms_taxa_data %>%
 
 # Diarrhea vs. bifidobaterium
 p5 <- GIsymptoms_taxa_data %>% 
-  ggplot(mapping = aes(x = Diarrhea,
+  ggplot(mapping = aes(x = Timing,
                        y = Bifidobacterium,
-                       fill = Timing)) +
-  geom_boxplot() +
+                       fill = Diarrhea)) +
+  geom_boxplot(show.legend = FALSE) +
   facet_wrap(~ Treatment) +
-  theme_bw()
+  aes(x = fct_inorder(Timing)) +
+  xlab("Timing") +
+  theme_bw() +
+  scale_fill_manual(values=c("#009900", 
+                             "#CCFFFF", 
+                             "#FFFF00", 
+                             "#33FF33"))
+
 
 # Diarrhea vs. clostridium
 p6 <- GIsymptoms_taxa_data %>% 
-  ggplot(mapping = aes(x = Diarrhea,
+  ggplot(mapping = aes(x = Timing,
                        y = Clostridium,
-                       fill = Timing)) +
+                       fill = Diarrhea)) +
   geom_boxplot() +
   facet_wrap(~ Treatment) +
-  theme_bw()
+  aes(x = fct_inorder(Timing)) +
+  xlab("Timing") +
+  theme_bw() +
+  scale_fill_manual(values=c("#009900", 
+                             "#CCFFFF", 
+                             "#FFFF00", 
+                             "#33FF33"))
+
 
 
 # Boxplots of constipation symptoms against different taxa pre and post treatment 
 
 # Constipation vs. bifidobaterium
 p7 <- GIsymptoms_taxa_data %>% 
-  ggplot(mapping = aes(x = Constipation,
+  ggplot(mapping = aes(x = Timing,
                        y = Bifidobacterium,
-                       fill = Timing)) +
-  geom_boxplot() +
+                       fill = Constipation)) +
+  geom_boxplot(show.legend = FALSE) +
   facet_wrap(~ Treatment) +
-  theme_bw()
+  aes(x = fct_inorder(Timing)) +
+  xlab("Timing") +
+  theme_bw() +
+  scale_fill_manual(values=c("#003300",
+                             "#009900", 
+                             "#CCFFFF", 
+                             "#FFFF00", 
+                             "#33FF33"))
 
 # Constipation vs. clostridium
 p8 <- GIsymptoms_taxa_data %>% 
-  ggplot(mapping = aes(x = Constipation,
+  ggplot(mapping = aes(x = Timing,
                        y = Clostridium,
-                       fill = Timing)) +
+                       fill = Constipation)) +
   geom_boxplot() +
   facet_wrap(~ Treatment) +
-  theme_bw()
+  aes(x = fct_inorder(Timing)) +
+  xlab("Timing") +
+  theme_bw() +
+  scale_fill_manual(values=c("#003300",
+                             "#009900", 
+                             "#CCFFFF", 
+                             "#FFFF00", 
+                             "#33FF33"))
 
-pain_plot = (p1 + p2)
-gas_plot = (p3 + p4)
-diarrhea_plot = (p5 + p6)
-constipation_plot = (p7 + p8)
+pain_vs_taxa_plot = (p1 | p2)
+gas_vs_taxa_plot = (p3 | p4)
+diarrhea_vs_taxa_plot = (p5 | p6)
+constipation_vs_taxa_plot = (p7 | p8)
 
 # Write data --------------------------------------------------------------
 write_tsv(x = GIsymptoms_taxa_data,
-          file = "data/09_GIsymptoms_taxa_data.tsv")
+          file = "data/09_Gastrointestinal_symptoms_taxa_data.tsv")
 
-ggsave(filename = "09_pain_plot.png",
+ggsave(filename = "09_pain_vs_taxa_plot.png",
        path = "results",
-       plot = pain_plot,
+       plot = pain_vs_taxa_plot,
        width = 12,
        height = 6)
-ggsave(filename = "09_gas_plot.png",
+ggsave(filename = "09_gas_vs_taxa_plot.png",
        path = "results",
-       plot = gas_plot,
+       plot = gas_vs_taxa_plot,
        width = 12,
        height = 6)
-ggsave(filename = "09_diarrhea_plot.png",
+ggsave(filename = "09_diarrhea_vs_taxa_plot.png",
        path = "results",
-       plot = diarrhea_plot,
+       plot = diarrhea_vs_taxa_plot,
        width = 12,
        height = 6)
-ggsave(filename = "09_constipation_plot.png",
+ggsave(filename = "09_constipation_vs_taxa_plot.png",
        path = "results",
-       plot = constipation_plot,
+       plot = constipation_vs_taxa_plot,
        width = 12,
        height = 6)
