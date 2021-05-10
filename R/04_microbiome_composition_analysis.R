@@ -113,11 +113,11 @@ write_tsv(x = pca_microbiome_variance,
 ggsave(filename = "04_microbiome_composition_barplot.png",
        path = "results",
        plot = microbiome_plot,
-       width = 12,
-       height = 6)
+       width = 10,
+       height = 5)
 
 ggsave(filename = "04_pca_microbiome_plot.png",
        path = "results",
        plot = pca_microbiome_plot,
-       width = 12,
-       height = 8)
+       width = 9,
+       height = 6)
