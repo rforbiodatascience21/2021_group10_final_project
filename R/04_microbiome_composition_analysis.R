@@ -71,38 +71,52 @@ microbiome_plot <- microbiome_data %>%
 
 
 # Model data --------------------------------------------------------------
+# PCA of microbiome composition
 
-# This unfortunately turned out a dead end...
+pca_microbiome <- sanctuary_data %>% 
+  select(starts_with("k__")) %>% 
+  drop_na() %>% 
+  select(where(~ sd(.x) > 0)) %>% 
+  scale() %>% 
+  prcomp()
 
-#pca_microbiome <- sanctuary_data %>% 
-#  select(starts_with("k__"),
-#         where(~ sd(.) > 0)) %>% 
-#  drop_na() %>% 
-#  scale() %>% 
-#  prcomp()
+# Removing sample 208_v3, since the microbiome data 
+# was lost for this sample
+matching_sanctuary <- sanctuary_data %>% 
+  filter(Sample != "208_v3")
 
-#pca_microbiome_plot = pca_microbiome %>%
-#  augment(sanctuary_data) %>% 
-#  ggplot(aes(.fittedPC1,
-#             .fittedPC2,
-#             color = Sample)) + 
-#  geom_point(size = 2.5,
-#             aes(shape = Treatment))+
-#  stat_ellipse(alpha = 0.5)+
-#  theme_minimal()+
-#  labs(x = "PC1",
-#       y = "PC2",
-#       title = "PCA of microbiome composition")
+pca_microbiome_plot <- pca_microbiome %>%
+  augment(matching_sanctuary) %>% 
+  ggplot(aes(.fittedPC1,
+             .fittedPC2,
+             color = Treatment)) + 
+  geom_point(size = 2.5,
+             aes(shape = Timing))+
+  theme_minimal()+
+  labs(x = "PC1",
+       y = "PC2",
+       title = "PCA of microbiome composition")+
+  scale_color_brewer(palette = "Set2")
 
-
+# How much variance is described by each PC?
+pca_microbiome_variance <- pca_microbiome %>% 
+  tidy(matrix = "eigenvalues")
 
 # Write data --------------------------------------------------------------
 
 write_tsv(x = microbiome_data,
           file = "data/04_microbiome_data.tsv")
+write_tsv(x = pca_microbiome_variance,
+          file = "data/04_microbiome_pca_variance_explained.tsv")
 
 ggsave(filename = "04_microbiome_composition_barplot.png",
        path = "results",
        plot = microbiome_plot,
        width = 12,
        height = 6)
+
+ggsave(filename = "04_pca_microbiome_plot.png",
+       path = "results",
+       plot = pca_microbiome_plot,
+       width = 12,
+       height = 8)
