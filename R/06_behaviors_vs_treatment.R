@@ -4,6 +4,7 @@ rm(list = ls())
 
 # Load libraries ----------------------------------------------------------
 library(tidyverse)
+library(ggpubr)
 library(haven)
 
 
@@ -61,9 +62,14 @@ RBS_data <- sanctuary_data %>%
 ABC_plot_1 <- ABC_data %>% 
   ggplot(mapping = aes(x = factor(Subject),
                        y = Score,
-                       color = factor(Timing))) +
+                       color = Timing)) +
   geom_boxplot() +
-  facet_grid(.~Treatment)
+  facet_grid(.~Treatment) +
+  stat_compare_means(label = "p.signif",paired = TRUE) +
+  xlab("Subject") +
+  ylab("Behavior Score") +
+  labs(title = "Subjects behavior score with Prebiotic or Synbiotic treatment",
+       subtitle = "Boxplots stratified on before and after treatment")
 
 # Visualizing Abberant Behavior for one subject before and after treatment
 
@@ -71,9 +77,12 @@ ABC_plot_2 <- ABC_data %>%
   filter(Subject == 202) %>% 
   ggplot(mapping = aes(x = Abberant_Behavior,
                        y = Score,
-                       fill = Treatment)) +
+                       fill = Timing)) +
   geom_bar(stat="identity") +
-  facet_grid(.~Timing)
+  facet_grid(.~Treatment) +
+  xlab("Abberant Behavior Type") +
+  labs(title = "Subject \"202\" score with Prebiotic or Synbiotic treatment",
+       subtitle = "Barplots stratified on before and after treatment")
 
 # Write data --------------------------------------------------------------
 write_tsv(x = ABC_data,
