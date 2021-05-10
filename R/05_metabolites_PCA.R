@@ -11,7 +11,7 @@ source(file = "R/99_project_functions.R")
 
 
 # Load data ---------------------------------------------------------------
-sanctuary_data <- read_tsv(file = "data/02_clean_data.tsv")
+sanctuary_data <- read_tsv(file = "data/03_final_data_clean_aug.tsv")
 
 # Wrangle data ------------------------------------------------------------
 
@@ -51,9 +51,6 @@ pca_metabolites_plot <- pca_metabolites %>%
        title = "PCA of metabolites from fecal, urine, and serum samples")
 
 # Write data --------------------------------------------------------------
-
-write_tsv(x = pca_metabolites,
-          file = "data/05_PCA_metabolites.tsv")
 
 ggsave(filename = "05_PCA_metabolites_plot.png",
        path = "results",

@@ -82,7 +82,20 @@ ABC_plot_2 <- ABC_data %>%
   facet_grid(.~Treatment) +
   xlab("Abberant Behavior Type") +
   labs(title = "Subject \"202\" score with Prebiotic or Synbiotic treatment",
-       subtitle = "Barplots stratified on before and after treatment")
+       subtitle = "Barplots stratified on pre and post treatment")
+
+ABC_plot_3 <- ABC_data %>%
+  filter(Subject == 212) %>% 
+  ggplot(mapping = aes(x = Abberant_Behavior,
+                       y = Score,
+                       fill = Timing)) +
+  geom_bar(stat="identity") +
+  facet_grid(.~Treatment) +
+  xlab("Abberant Behavior Type") +
+  labs(title = "Subject \"212\" score with Prebiotic or Synbiotic treatment",
+       subtitle = "Barplots stratified on pre and post treatment")
+
+ABC_plot_significant_subjects <- ABC_plot_2+ABC_plot_3
 
 # Write data --------------------------------------------------------------
 write_tsv(x = ABC_data,
@@ -99,3 +112,10 @@ ggsave(filename = "06_ABC_plot_subject_202.png",
        plot = ABC_plot_2,
        width = 12,
        height = 8)
+
+ggsave(filename = "06_ABC_plot_subject_202-212.png",
+       path = "results",
+       plot = ABC_plot_significant_subjects,
+       width = 12,
+       height = 8)
+
