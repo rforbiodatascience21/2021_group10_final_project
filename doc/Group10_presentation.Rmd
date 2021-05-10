@@ -133,7 +133,7 @@ knitr::include_graphics("../results/06_ABC_plot.png", error = F)
 knitr::include_graphics("../results/06_ABC_plot_subject_202-212.png", error = F)
 ```
 
-## Gastrointestinal symptoms before and after treatments
+## Gastrointestinal symptoms
 
 ```{r, out.width='80%', fig.align='center'}
 knitr::include_graphics("../results/07_Gastrointestinal_symptoms_bar_plot.png", error = F)
