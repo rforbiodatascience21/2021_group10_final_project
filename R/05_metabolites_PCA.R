@@ -55,5 +55,5 @@ pca_metabolites_plot <- pca_metabolites %>%
 ggsave(filename = "05_PCA_metabolites_plot.png",
        path = "results",
        plot = pca_metabolites_plot,
-       width = 12,
-       height = 8)
+       width = 9,
+       height = 6)
