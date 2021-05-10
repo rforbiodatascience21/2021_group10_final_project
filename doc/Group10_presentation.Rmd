@@ -27,7 +27,7 @@ Pilot study of probiotic/colostrum supplementation on gut function in children w
  - Cytokines in blood
  - Microbiota of fecal samples
 
-## Data 1
+## Data
 
 
 Study design:
@@ -37,7 +37,7 @@ include_graphics("images/experiment_design_flowchart.png")
 ```
 
 
-## Data 2
+## Data
 
 Excel file with six sheets:
 
@@ -67,28 +67,33 @@ include_graphics("images/Diagram_data_structure.png")
 - Align column names
 - Change entries with typos
 - Assign NAs
-
 - Remove undesired and empty columns
 - Filter out redundancy
 
 
 ## Tidying data
 
-```{r echo=TRUE}
+immune_microbiota data issue:
+
+```{r}
 immune_microbiota %>% 
   select(1:5)
 ```
 
 ## Tidying data
 
-```{r echo=TRUE}
+GI_behavior data issue:
+
+```{r}
 GI_behavior %>% 
   select(1:6)
 ```
 
 ## Tidying data
 
-```{r echo=TRUE}
+Data from stool log excluded:
+
+```{r}
 str(stool_data)
 ```
 
@@ -101,8 +106,21 @@ str(final_data)
 ```
 
 
+## Data analysis {.build}
+
+Exploring the data:
+
+> - Behavior vs. treatment
+- GI symptoms vs. treatment
+- Behavior related to microbiome
+- GI symptoms related to microbiome
+- Microbiome changes (PCA)
+- Metabolite changes
+- Cytokine changes
+
 # Results
 
+<<<<<<< HEAD
 ## Change in abberant behavior after treatment
 
 ```{r, out.width='95%', fig.align='center'}
@@ -113,18 +131,31 @@ knitr::include_graphics("../results/06_ABC_plot.png", error = F)
 
 ```{r, out.width='95%', fig.align='center'}
 knitr::include_graphics("../results/06_ABC_plot_subject_202-212.png", error = F)
+=======
+## Aberrant behavior pre and post treatment
+
+```{r, out.width='75%', fig.align='center'}
+include_graphics("../results/06_ABC_plot.png", error = F)
 ```
 
-## Aberrant behavior vs. taxa aboundance pre and post treatment
+## Subject 202 and 212 pre and post treatment
 
 ```{r, out.width='100%', fig.align='center'}
-knitr::include_graphics("../results/08_ABC_vs_taxa_scatterplot.png", error = F)
+include_graphics("../results/06_ABC_plot_subject_202-212.png", error = F)
+>>>>>>> c6bcf52b2ed161a5192b58d7aeab0feb73a2c8e4
 ```
+
 
 ## Gastrointestinal symptoms pre and post treatments
 
 ```{r, out.width='80%', fig.align='center'}
 knitr::include_graphics("../results/07_Gastrointestinal_symptoms_bar_plot.png", error = F)
+```
+
+## Aberrant behavior vs. taxa abundance pre and post treatment
+
+```{r, out.width='100%', fig.align='center'}
+include_graphics("../results/08_ABC_vs_taxa_scatterplot.png", error = F)
 ```
 
 
