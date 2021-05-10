@@ -172,8 +172,12 @@ include_graphics("../results/08_ABC_vs_taxa_scatterplot.png", error = F)
 ```
 
 
+
 # Discussion
 
 ## Discussion
 
-> - Improved behavior
+> - Improved autism symptoms
+- Improved gastrointestinal symptoms
+
+But why?
