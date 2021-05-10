@@ -10,7 +10,7 @@ source(file = "R/99_project_functions.R")
 any_over_80 <- function(x) any(x > .8, na.rm = TRUE)
 
 # Load data ---------------------------------------------------------------
-sanctuary_data <- read_tsv(file = "data/02_clean_data.tsv")
+sanctuary_data <- read_tsv(file = "data/03_final_data_clean_aug.tsv")
 
 # Wrangle data ------------------------------------------------------------
 
