@@ -45,6 +45,7 @@ Immune_heatmap_plot <-Immune_heatmap %>%
              fill= Frequency)) + 
   geom_tile()+
   facet_grid(~Treatment) +
+  aes(x = fct_inorder(Subject_time)) +
   labs(title = "Cell frequency before and after treatment",
        x = "Subject and time",
        y = "Immunce cell markers") +
