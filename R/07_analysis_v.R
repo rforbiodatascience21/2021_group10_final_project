@@ -18,43 +18,64 @@ data <- read_tsv(file = "data/02_clean_data.tsv")
 Gut_metabolites_immune_cells_cytokines_data <- data %>% 
   select(Subject,
          Sample,
-         Timing,
-         Treatment,
-         Acetate_fecal,
          Butyrate_fecal,
          Propionate_fecal,
          Acetate_serum,
          Acetate_urine,
-         CD25_M,
-         CD25_PMA,
          IL10_CD4,
-         IFNg_CD4,
-         IFNg_CD8,
-         IL17_CD4,
-         TNFa_CD4,
          TNFa_CD8,
-         IL6_CD4, 
-         P_Actinobacteria,
-         G_Bifidobacterium,
-         contains("g__Akkermansia"),
-         G_Clostridium) %>% 
-  rename("Fecal acetate" = Acetate_fecal,
-         "Fecal butyrate" = Butyrate_fecal,
+         IL13_CD4)
+         
+  rename("Fecal butyrate" = Butyrate_fecal,
          "Serum acetate" = Acetate_serum,
          "Urine acetate" = Acetate_urine,
-         "Fecal proprionte" = Propionate_fecal,
-         "Actinobacteria" = P_Actinobacteria,
-         "Bifidobacterium" = G_Bifidobacterium,
-         "Clostridium" = G_Clostridium,
-         "Akkermansia" = `k__Bacteria;p__Verrucomicrobia;c__Verrucomicrobiae;o__Verrucomicrobiales;f__Verrucomicrobiaceae;g__Akkermansia`) %>% 
-  mutate(Treatment = case_when(Treatment == "Pre" ~ "Prebiotic",
-                               Treatment == "Syn" ~ "Synbiotic"))
+         "Fecal proprionte" = Propionate_fecal)
+  
+
+# Visualize data ----------------------------------------------------------
+# Scatterplot visualization of correlation between
+# certain gut metabolites and immune cells or cytokines
+# fecal butyrate and IL10_CD4
+  
+
+  p1 <- ggplot(data=Gut_metabolites_immune_cells_cytokines_data, 
+               mapping=aes(x=Fecal butyrate, y=IL10_CD4),color = "blue") + 
+    geom_point(size=2, shape=23)+
+    ggtitle('Correlation 1')
+  
+  # Visualize data ----------------------------------------------------------
+  # Scatterplot visualization of correlation between
+  # certain gut metabolites and immune cells or cytokines
+  # Serum acetate and IL13_CD4
+  
+  p2 <- ggplot(data=Gut_metabolites_immune_cells_cytokines_data, 
+               mapping=aes(x=Serum acetate, y=IL13_CD4), color = "red") + 
+    geom_point(size=2, shape=20)+
+    ggtitle('Correlation 2')
+  
+  # Visualize data ----------------------------------------------------------
+  # Scatterplot visualization of correlation between
+  # certain gut metabolites and immune cells or cytokines
+  # Urine acetate and TNFa_CD8
+  
+  p3 <- ggplot(data=Gut_metabolites_immune_cells_cytokines_data, 
+               mapping=aes(x=Urine acetate, y=TNFa_CD8),color = "black") + 
+    geom_point(size=2, shape=10)+
+    ggtitle('Correlation 3')
+  
+  
+  
+  
+ 
+  
+    
+    
 
 
+           
+    
 
+ 
 
-
-
-
-
-
+  
+  
