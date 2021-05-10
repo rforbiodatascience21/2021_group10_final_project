@@ -4,6 +4,7 @@ rm(list = ls())
 # Load libraries ----------------------------------------------------------
 library(tidyverse)
 library(patchwork)
+library(RColorBrewer)
 
 
 # Define functions --------------------------------------------------------
@@ -27,7 +28,8 @@ ABC_taxa_data <- data %>%
          "Bifidobacterium" = G_Bifidobacterium,
          "Clostridium" = G_Clostridium) %>% 
   mutate(Treatment = case_when(Treatment == "Pre" ~ "Prebiotic",
-                               Treatment == "Syn" ~ "Synbiotic"))
+                               Treatment == "Syn" ~ "Synbiotic")) %>% 
+  drop_na()
 
 
 # Visualize data ----------------------------------------------------------
@@ -37,19 +39,19 @@ ABC_taxa_data <- data %>%
 p1 <- ABC_taxa_data %>% 
   ggplot(mapping = aes(x = `Abberant Behavior Score`,
                        y = Bifidobacterium,
-                       color = Timing)) +
+                       color = Timing,
+                       label = Subject)) +
   geom_point(size = 4) +
   facet_wrap(~ Treatment) +
   theme_bw() +
   labs(x = element_blank()) +
+  scale_color_manual(values=c("#E69F00", "#56B4E9")) +
   # Text displayed for patients after treatment
-  geom_text(aes(label = ifelse(Timing == "Post" & (Treatment == "Synbiotic" | Treatment == "Prebiotic"),
-                               as.character(Subject),
-                               '')), 
-            size = 3, 
+  geom_text(size = 3, 
             hjust=0, 
             vjust=0, 
-            colour = "black") 
+            colour = "black",
+            check_overlap = TRUE)
 
 # Scatterplot visualization of correlation between
 # aberrant behavior (total) score and Clostridium amounts
@@ -57,18 +59,18 @@ p1 <- ABC_taxa_data %>%
 p2 <- ABC_taxa_data %>% 
   ggplot(mapping = aes(x = `Abberant Behavior Score`,
                        y = Clostridium,
-                       color = Timing)) +
+                       color = Timing,
+                       label = Subject)) +
   geom_point(size = 4) +
   facet_wrap(~ Treatment) +
   theme_bw() +
+  scale_color_manual(values=c("#E69F00", "#56B4E9")) +
   # Text displayed for patients after the Syn treatment
-  geom_text(aes(label = ifelse(Timing == "Post" & (Treatment == "Synbiotic" | Treatment == "Prebiotic"),
-                               as.character(Subject),
-                               '')), 
-            size = 3, 
+  geom_text(size = 3, 
             hjust=0, 
             vjust=0, 
-            colour = "black") 
+            colour = "black",
+            check_overlap = TRUE) 
 
 ABC_vs_taxa_scatterplot <- (p1 / p2) + 
   plot_layout(guides = "collect")
