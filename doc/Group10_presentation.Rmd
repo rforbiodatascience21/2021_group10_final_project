@@ -66,6 +66,10 @@ include_graphics("images/Diagram_data_structure.png")
 - Change entries with typos
 - Assign NAs
 
+- Remove undesired and empty columns
+- Filter out redundancy
+
+
 ## Tidying data
 
 ```{r echo=TRUE}
@@ -81,10 +85,10 @@ immune_microbiota %>%
 knitr::include_graphics("../results/06_ABC_plot.png", error = F)
 ```
 
-## Subject "202" pre and post treatment
+## Subject "202" and "212" pre and post treatment
 
-```{r, out.width='75%', fig.align='center'}
-knitr::include_graphics("../results/06_ABC_plot_subject_202.png", error = F)
+```{r, out.width='100%', fig.align='center'}
+knitr::include_graphics("../results/06_ABC_plot_subject_202-212.png", error = F)
 ```
 
 ## Aberrant behavior vs. taxa aboundance pre and post treatment

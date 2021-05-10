@@ -15,13 +15,13 @@ sanctuary_data <- read_tsv(file = "data/02_clean_data.tsv")
 # Wrangle data ------------------------------------------------------------
 
 # Subsetting microbiome and metabolites data
-micro_meta_data = sanctuary_data %>% 
-  select(
-    starts_with("k__"),
-    ends_with("_fecal"),
-    ends_with("_urine"),
-    ends_with("_serum")) %>%
+micro_meta_data <- sanctuary_data %>% 
+  select(starts_with("k__"),
+         ends_with("_fecal"),
+         ends_with("_urine"),
+         ends_with("_serum")) %>%
   drop_na()
+    
 
 # Creating the long correlation table
 res.cor = correlate(micro_meta_data) %>%
@@ -29,10 +29,10 @@ res.cor = correlate(micro_meta_data) %>%
   shave() %>%
   stretch(na.rm = TRUE)
 
-# Looking for the correlation superior to 80% among gut vs bacterias
+# Looking for the correlation superior to 80% among gut vs bacteria
 
 # all
-all_data = res.cor %>%
+all_data <- res.cor %>%
   filter((str_detect(x,"_fecal") | str_detect(y,"_fecal")) |
          (str_detect(x,"_urine") | str_detect(y,"_urine")) |
          (str_detect(x,"_serum") | str_detect(y,"_serum")),
