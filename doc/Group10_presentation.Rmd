@@ -158,6 +158,11 @@ include_graphics("../results/04_pca_microbiome_plot.png")
 include_graphics("../results/08_ABC_vs_taxa_scatterplot.png", error = F)
 ```
 
+## Gastrointestinal symptoms vs. taxa abundance pre and post treatment
+
+```{r}
+include_graphics("../results/09_GIsymptoms_vs_taxa_barplots.R")
+```
 
 
 # Discussion
