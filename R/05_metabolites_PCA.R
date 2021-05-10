@@ -11,11 +11,11 @@ source(file = "R/99_project_functions.R")
 
 
 # Load data ---------------------------------------------------------------
-sanctuary_data = read_tsv(file = "data/02_clean_data.tsv")
+sanctuary_data <- read_tsv(file = "data/02_clean_data.tsv")
 
 # Wrangle data ------------------------------------------------------------
 
-metabolite_data = sanctuary_data %>% 
+metabolite_data <- sanctuary_data %>% 
   select(Sample,
          Subject,
          Treatment,
@@ -28,7 +28,7 @@ metabolite_data = sanctuary_data %>%
 
 # Model data --------------------------------------------------------------
 
-pca_metabolites = metabolite_data %>% 
+pca_metabolites <- metabolite_data %>% 
   select(-Sample,
          -Subject,
          -Treatment) %>% 
@@ -37,15 +37,15 @@ pca_metabolites = metabolite_data %>%
 
 # Visualize data ----------------------------------------------------------
 
-pca_metabolites_plot = pca_metabolites %>%
+pca_metabolites_plot <- pca_metabolites %>%
   augment(metabolite_data) %>% 
   ggplot(aes(.fittedPC1,
              .fittedPC2,
              color = Subject)) + 
   geom_point(size = 2.5,
-             aes(shape = Treatment))+
+             aes(shape = Treatment)) +
   stat_ellipse(alpha = 0.5)+
-  theme_minimal()+
+  theme_minimal() +
   labs(x = "PC1",
        y = "PC2",
        title = "PCA of metabolites from fecal, urine, and serum samples")
