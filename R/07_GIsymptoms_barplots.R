@@ -63,7 +63,7 @@ pain_plot <- GIsymptoms_data %>%
   facet_wrap(~ Treatment) +
   theme_bw() +
   aes(x = fct_inorder(Timing)) +
-  xlab("Timing") +
+  labs(x = element_blank()) +
   scale_fill_manual(values=c("#000066", 
                              "#66CCFF", 
                              "#6666FF", 
@@ -78,7 +78,7 @@ gas_plot <- GIsymptoms_data %>%
   facet_wrap(~ Treatment) +
   theme_bw() +
   aes(x = fct_inorder(Timing)) +
-  xlab("Timing") +
+  labs(x = element_blank()) +
   scale_fill_manual(values=c("#000033",
                              "#000066", 
                              "#66CCFF", 
@@ -115,28 +115,15 @@ constipation_plot <- GIsymptoms_data %>%
                              "#66CCFF", 
                              "#6666FF", 
                              "#0000CC"))
+GIsymptoms_plot <- (pain_plot | gas_plot) /
+  (diarrhea_plot | constipation_plot) 
 
 # Write data --------------------------------------------------------------
 write_tsv(x = GIsymptoms_data,
           file = "data/07_GIsymptoms_data.tsv")
 
-ggsave(filename = "07_pain_bar_plot.png",
+ggsave(filename = "07_GIsymptoms_bar_plots.png",
        path = "results",
-       plot = pain_plot,
-       width = 12,
-       height = 8)
-ggsave(filename = "07_gas_bar_plot.png",
-       path = "results",
-       plot = gas_plot,
-       width = 12,
-       height = 8)
-ggsave(filename = "07_diarrhea_bar_plot.png",
-       path = "results",
-       plot = diarrhea_plot,
-       width = 12,
-       height = 8)
-ggsave(filename = "07_constipation_bar_plot.png",
-       path = "results",
-       plot = constipation_plot,
+       plot = GIsymptoms_plot,
        width = 12,
        height = 8)
