@@ -196,12 +196,7 @@ include_graphics("../results/10_Immune_heatmap_plot.png")
 
 But why?
 
-<<<<<<< HEAD
-- Perhaps immune cells (however, subject 202 and 212 do not exhibit marked changes in immune cell phenotypes)
-- Perhaps placebo?
-=======
 > - Perhaps immune cells
->>>>>>> ee86ad84872502b9e53762d9037d072379508495
 - More subjects needed
 - Longer test period
 
