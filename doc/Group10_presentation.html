@@ -171,29 +171,33 @@ slide:not(.current) .plotly.html-widget{
       <h1 data-config-title><!-- populated from slide_config.json --></h1>
       
       <p data-config-presenter><!-- populated from slide_config.json --></p>
-            <p style="margin-top: 6px; margin-left: -2px;">12 5 2021</p>
+            <p style="margin-top: 6px; margin-left: -2px;">12-5-2021</p>
           </hgroup>
   </slide>
 
-<slide class=""><hgroup><h2>Slide with Bullets</h2></hgroup><article  id="slide-with-bullets">
+<slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Introduction</h2></hgroup><article  id="introduction">
 
-<ul>
-<li>Bullet 1</li>
-<li>Bullet 2</li>
-<li>Bullet 3</li>
+</article></slide><slide class=""><hgroup><h2>Study</h2></hgroup><article  class="build" id="study">
+
+<p><strong>Sanctuary et al., 2019:</strong> Pilot study of probiotic/colostrum supplementation on gut function in children with autism and gastrointestinal symptoms</p>
+
+<ul class = 'build'>
+<li>Probiotic/synbiotic treatment</li>
+<li>Autism symptoms</li>
+<li>Gastrointestinal symptoms</li>
+<li>Metabolites from fecal, urine, and serum samples</li>
+<li>Cytokines in blood</li>
+<li>Microbiota of fecal samples</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Slide with R Output</h2></hgroup><article  id="slide-with-r-output">
+</article></slide><slide class=""><hgroup><h2>Data</h2></hgroup><article  id="data">
 
-<pre class = 'prettyprint lang-r'>summary(cars)</pre>
-
-<pre >##      speed           dist       
-##  Min.   : 4.0   Min.   :  2.00  
-##  1st Qu.:12.0   1st Qu.: 26.00  
-##  Median :15.0   Median : 36.00  
-##  Mean   :15.4   Mean   : 42.98  
-##  3rd Qu.:19.0   3rd Qu.: 56.00  
-##  Max.   :25.0   Max.   :120.00</pre>
+<pre class = 'prettyprint lang-r'>fecal_metabolites = read_tsv(file = &quot;../data/01_fecal_metabolites.tsv&quot;)
+serum_metabolites = read_tsv(file = &quot;../data/01_serum_metabolites.tsv&quot;)
+urine_metabolites = read_tsv(file = &quot;../data/01_urine_metabolites.tsv&quot;)
+GI_behavior = read_tsv(file = &quot;../data/01_GI_behavior.tsv&quot;)
+immune_microbiota = read_tsv(file = &quot;../data/01_immune_microbiota.tsv&quot;)
+microbiota_ras = read_tsv(file = &quot;../data/01_microbiota_ras.tsv&quot;)</pre>
 
 </article></slide><slide class=""><hgroup><h2>Slide with Plot</h2></hgroup><article  id="slide-with-plot">
 

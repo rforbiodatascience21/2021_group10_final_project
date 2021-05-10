@@ -23,16 +23,13 @@ microbiota_ras = read_tsv(file = "data/01_microbiota_ras.tsv")
 # Renaming metabolite columns to contain metabolite origin
 
 fecal_metabolites = fecal_metabolites %>% 
-  suffix_numeric_cols(df = .,
-                      string = "_fecal")
+  suffix_numeric_cols(string = "_fecal")
 
 urine_metabolites = urine_metabolites %>% 
-  suffix_numeric_cols(df = .,
-                      string = "_urine")
+  suffix_numeric_cols(string = "_urine")
 
 serum_metabolites = serum_metabolites %>% 
-  suffix_numeric_cols(df = .,
-                      string = "_serum") %>% 
+  suffix_numeric_cols(string = "_serum") %>% 
   # Rename column to match column name in other dataframes
   rename("Mixer" = `Probiotic Mixer`) %>% 
   # Change to same nomenclature as in other dataframes
@@ -55,7 +52,9 @@ microbiota_ras = microbiota_ras %>%
          "Baseline Treatment" = BaseTreat,
          "Mixer" = ProMix) %>% 
   # Remove rows that belong to negative controls
-  filter(!str_detect(Subject,"^neg"))  
+  filter(str_detect(Subject,
+                    "^neg",
+                    negate = TRUE))  
 
 # Combining all metabolite and microbiota data
 metabolites_microbiota = fecal_metabolites %>%
