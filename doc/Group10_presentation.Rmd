@@ -152,11 +152,6 @@ include_graphics("../results/06_ABC_plot_subject_202-212.png", error = F)
 knitr::include_graphics("../results/07_Gastrointestinal_symptoms_bar_plot.png", error = F)
 ```
 
-## Aberrant behavior vs. taxa abundance pre and post treatment
-
-```{r, out.width='100%', fig.align='center'}
-include_graphics("../results/08_ABC_vs_taxa_scatterplot.png", error = F)
-```
 
 ## Microbiome composition
 
@@ -170,5 +165,15 @@ include_graphics("../results/04_microbiome_composition_barplot.png")
 include_graphics("../results/04_pca_microbiome_plot.png")
 ```
 
+## Aberrant behavior vs. taxa abundance pre and post treatment
+
+```{r, out.width='100%', fig.align='center'}
+include_graphics("../results/08_ABC_vs_taxa_scatterplot.png", error = F)
+```
+
 
 # Discussion
+
+## Discussion
+
+> - Improved behavior
