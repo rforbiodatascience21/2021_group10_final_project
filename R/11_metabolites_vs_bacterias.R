@@ -113,7 +113,8 @@ distribution <- res.cor %>%
   ylab("Count") +
   labs(title = "Distribution of the correlation coefficients of Gut metabolites vs Bacterias \n")
 
-# Examples of scatterplots based on the findings (highly correlated)
+# Examples of scatterplots based on the findings (from the pairs that had the 
+# highest correlation)
 # Arabinose_fecal against Gammaproteobacteria on a scatterplot
 p1 <- micro_meta_data_2 %>% 
   mutate(Subject = as.factor(Subject),
@@ -124,7 +125,7 @@ p1 <- micro_meta_data_2 %>%
                        colour = Subject)) +
   geom_point() +
   xlab("Arabinose fecal") +
-  ylab("Relative Abundance") +
+  ylab("R. A. of Gammaproteobacteria") +
   theme(legend.position = "none")
 
 # Serine_fecal against Clostridia on a scatterplot
@@ -137,7 +138,7 @@ p2 <- micro_meta_data_2 %>%
                        colour = Subject)) +
   geom_point() +
   xlab("Serine fecal") +
-  ylab("Relative Abundance") +
+  ylab("R. A. of Clostridia") +
   theme(legend.position = "none")
 
 # Mannitol_urine against Methanobacteria on a scatterplot
@@ -150,7 +151,7 @@ p3 <- micro_meta_data_2 %>%
                        colour = Subject)) +
   geom_point() +
   xlab("Mannitol urine") +
-  ylab("Relative Abundance") +
+  ylab("R. A. of Methanobacteria") +
   theme(legend.position = "none")
 
 # Isoleucine_urine against Erysipelotrichi on a scatterplot
@@ -163,7 +164,7 @@ p4 <- micro_meta_data_2 %>%
                        colour = Subject)) +
   geom_point() +
   xlab("Isoleucine urine") +
-  ylab("Relative Abundance") +
+  ylab("R. A. of Erysipelotrichi") +
   theme(legend.position = "none")
 
 # Acetoacetate_serum against Thermoplasmata on a scatterplot
@@ -176,7 +177,7 @@ p5 <- micro_meta_data_2 %>%
                        colour = Subject)) +
   geom_point() +
   xlab("Acetoacetate serum") +
-  ylab("Relative Abundance") +
+  ylab("R. A. of Thermoplasmata") +
   theme(legend.position = "none")
 
 # Glucose_serum against Bacilli on a scatterplot
@@ -189,15 +190,19 @@ p6 <- micro_meta_data_2 %>%
                        colour = Subject)) +
   geom_point() +
   xlab("Glucose serum") +
-  ylab("Relative Abundance") +
+  ylab("R. A. of Bacilli") +
   theme(legend.position = "none")
 
 # Merging the 6 examples in one figure
 figure <- ggarrange(p1, p2, p3, p4, p5, p6,
-                    labels = c("A", "B", "C", "D", "E", "F"),
+                    labels = "AUTO",
                     ncol = 2, nrow = 3,
                     common.legend = TRUE,
-                    legend = "right")
+                    legend = "right",
+                    vjust = 0.5) %>%
+  annotate_figure(top = text_grob("Relative abundance of some Bacterias versus some Metabolites \n",
+                                  face = "bold", 
+                                  size = 14))
 figure
 
 
