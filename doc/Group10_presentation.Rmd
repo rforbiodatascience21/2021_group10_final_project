@@ -174,7 +174,7 @@ include_graphics("../results/05_PCA_metabolites_plot.png")
 
 ## Correlations of some metabolites and bacterial taxa
 
-```{r out.width='90%'}
+```{r out.width='85%'}
 include_graphics("../results/11_scatter_plots.png")
 
 ```
