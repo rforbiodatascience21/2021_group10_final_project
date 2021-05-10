@@ -27,7 +27,7 @@ GIsymptoms_data <- data %>%
          Dia,
          Con) %>%
   rename("Diarrhea" = Dia,
-         "Constipation" = Con) %>% 
+         "Constipation" = Con) %>%
   mutate(Treatment = case_when(Treatment == "Pre" ~ "Prebiotic",
                                Treatment == "Syn" ~ "Synbiotic")) %>% 
   mutate(Constipation = case_when(Constipation == 0 ~ "never",
