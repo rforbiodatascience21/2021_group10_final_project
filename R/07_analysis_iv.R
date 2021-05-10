@@ -29,11 +29,26 @@ GIsymptoms_data <- data %>%
          "Constipation" = Con) %>% 
   mutate(Treatment = case_when(Treatment == "Pre" ~ "Prebiotic",
                                Treatment == "Syn" ~ "Synbiotic")) %>% 
-  mutate(Pain, Gas, Diarrhea, Constipation = case_when(. == 0 ~ "never",
-                                                       . == 1 ~ "rarely",
-                                                       . == 2 ~ "sometimes",
-                                                       . == 3 ~ "frequently",
-                                                       . == 4 ~ "always")) %>% 
+  mutate(Constipation = case_when(Constipation == 0 ~ "never",
+                                  Constipation == 1 ~ "rarely",
+                                  Constipation == 2 ~ "sometimes",
+                                  Constipation == 3 ~ "frequently",
+                                  Constipation == 4 ~ "always"),
+         Pain = case_when(Pain == 0 ~ "never",
+                          Pain == 1 ~ "rarely",
+                          Pain == 2 ~ "sometimes",
+                          Pain == 3 ~ "frequently",
+                          Pain == 4 ~ "always"),
+         Diarrhea = case_when(Diarrhea == 0 ~ "never",
+                              Diarrhea == 1 ~ "rarely",
+                              Diarrhea == 2 ~ "sometimes",
+                              Diarrhea == 3 ~ "frequently",
+                              Diarrhea == 4 ~ "always"),
+         Gas = case_when(Gas == 0 ~ "never",
+                         Gas == 1 ~ "rarely",
+                         Gas == 2 ~ "sometimes",
+                         Gas == 3 ~ "frequently",
+                         Gas == 4 ~ "always")) %>% 
   drop_na()
 
 
