@@ -6,6 +6,7 @@ rm(list = ls())
 library(tidyverse)
 library(patchwork)
 library(forcats)
+library(RColorBrewer)
 
 
 # Define functions --------------------------------------------------------
@@ -62,7 +63,11 @@ pain_plot <- GIsymptoms_data %>%
   facet_wrap(~ Treatment) +
   theme_bw() +
   aes(x = fct_inorder(Timing)) +
-  xlab("Timing")
+  xlab("Timing") +
+  scale_fill_manual(values=c("#000066", 
+                             "#66CCFF", 
+                             "#6666FF", 
+                             "#0000CC"))
 
 
 # Barplot of pre and post treatment gas symptoms
@@ -73,7 +78,11 @@ gas_plot <- GIsymptoms_data %>%
   facet_wrap(~ Treatment) +
   theme_bw() +
   aes(x = fct_inorder(Timing)) +
-  xlab("Timing")
+  xlab("Timing") +
+  scale_fill_manual(values=c("#000066", 
+                             "#66CCFF", 
+                             "#6666FF", 
+                             "#0000CC"))
 
 
 # Barplot of pre and post treatment diarrhea symptoms 
@@ -84,7 +93,11 @@ diarrhea_plot <- GIsymptoms_data %>%
   facet_wrap(~ Treatment) +
   theme_bw() +
   aes(x = fct_inorder(Timing)) +
-  xlab("Timing")
+  xlab("Timing") +
+  scale_fill_manual(values=c("#000066", 
+                             "#66CCFF", 
+                             "#6666FF", 
+                             "#0000CC"))
 
 
 # Barplot of pre and post treatment constipation symptoms 
@@ -95,7 +108,11 @@ constipation_plot <- GIsymptoms_data %>%
   facet_wrap(~ Treatment) +
   theme_bw() +
   aes(x = fct_inorder(Timing)) +
-  xlab("Timing")
+  xlab("Timing") +
+  scale_fill_manual(values=c("#000066", 
+                             "#66CCFF", 
+                             "#6666FF", 
+                             "#0000CC"))
 
 # Write data --------------------------------------------------------------
 write_tsv(x = GIsymptoms_data,
